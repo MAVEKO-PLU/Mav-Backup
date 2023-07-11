@@ -50,6 +50,7 @@ const Content = styled('div')(({ theme }) => ({
 
 export default function DashboardDrawer() {
   const [open, setOpen] = useState(false);
+  
   const [notifications, setNotifications] = useState([]);
  
   const [allRead, setAllRead] = useState(false);
@@ -110,14 +111,14 @@ export default function DashboardDrawer() {
         <Toolbar>
         <Typography textAlign={'center'} className='appbar'>MAVEKO</Typography>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }} />
-          <Link to="/test">
+         
           <IconButton sx={{ color: 'white' }} aria-label="open notification page"  onClick={handleOpen}  >
             
           <Badge badgeContent={unreadNotifications.length} color="error">
           <NotificationsIcon />
         </Badge>
           </IconButton>
-          </Link>
+          
           <IconButton sx={{ color: 'white' }} edge="start" aria-label="open drawer" onClick={toggleDrawer}>
             
             <MenuIcon />  
