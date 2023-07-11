@@ -40,7 +40,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="REPORTS" />
     </ListItemButton>
-    <ListItemButton >
+    <ListItemButton component={Link} to="/approval">
       <ListItemIcon style={{ color: '#05184C' }}>
         <PriceCheck />
       </ListItemIcon>
