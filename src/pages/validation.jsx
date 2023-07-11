@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import './validation'
+import  { useState} from 'react';
+import Button from "@mui/material/Button"
+import DashboardDrawer from './drawer';
+
+
+// import './validation.css'
 function Information() {
   const [supplierId, setSupplierId] = useState('');
   const [itemId, setItemId] = useState('');
@@ -90,13 +94,14 @@ function Information() {
     }
   };
 
-  return (
-   
-    <div className='container'>
-      <h1>Supplier Information</h1>
+  return (<>
+    <DashboardDrawer/>
+    <div className='container' style={{ margin:'95px' }}>
+      <h1>Formula</h1>
 
       <div className='form-container '>
         <form className='form'>
+            <div><h4 style={{  textAlign: 'left'  }}>Master List Formula</h4>
           <label htmlFor="supplierId">Supplier ID:</label>
           <select
             className="input-field"
@@ -108,27 +113,9 @@ function Information() {
             <option value="">Select a supplier</option>
             <option value="supplier1">Supplier 1</option>
             <option value="supplier2">Supplier 2</option>
-            {/* Add more supplier options as needed */}
-          </select>
-          <br />
-          <br />
-
-          <label htmlFor="itemId">Item ID:</label>
-          <select
-            id="itemId"
-            name="itemId"
-            value={itemId}
-            onChange={(e) => setItemId(e.target.value)}
-          >
-            <option value="">Select an item</option>
-            <option value="item1">Item 1</option>
-            <option value="item2">Item 2</option>
-            {/* Add more item options as needed */}
-          </select>
-          <br />
-          <br />
-
-          <label htmlFor="selectedFormula">Select a Formula:</label>
+           
+          </select>    
+          <label htmlFor="selectedFormula">Select New Formula:</label>
           <select
             className='input-field'
             id="selectedFormula"
@@ -139,12 +126,167 @@ function Information() {
             <option value="">Select a formula</option>
             <option value="oldPrice * 0.9">10% Discount</option>
             <option value="oldPrice + 100">Add $100</option>
-            {/* Add more formula options as needed */}
+          
+          </select> <Button variant='contained'sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button></div>
+         <div> <h4 style={{ textAlign: 'left' }}>New Customer Formula</h4>
+          <label htmlFor="supplierId">Customer ID:</label>
+          <select
+            className="input-field"
+            id="supplierId"
+            name="supplierId"
+            value={supplierId}
+            onChange={(e) => setSupplierId(e.target.value)}
+          >
+            <option value="">Select a customer</option>
+            <option value="supplier1">XYZ</option>
+            <option value="supplier2">TWIP</option>
+      
+          </select>
+          <label htmlFor="selectedFormula">Select New Formula:</label>
+          <select
+            className='input-field'
+            id="selectedFormula"
+            name="selectedFormula"
+            value={selectedFormula}
+            onChange={(e) => setSelectedFormula(e.target.value)}
+          >
+            <option value="">Select a formula</option>
+            <option value="oldPrice * 0.9">10% Discount</option>
+            <option value="oldPrice + 100">Add $100</option>
+          
+          </select>
+          <Button variant='contained'sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button>
+          </div>
+          <div> <h4 style={{ textAlign: 'left' }}>Update Customer Formula</h4>
+          <label htmlFor="supplierId">Customer ID:</label>
+          <select
+            className="input-field"
+            id="supplierId"
+            name="supplierId"
+            value={supplierId}
+            onChange={(e) => setSupplierId(e.target.value)}
+          >
+            <option value="">Select a customer</option>
+            <option value="supplier1">XYZ</option>
+            <option value="supplier2">TWIP</option>
+      
+          </select>
+          <label htmlFor="selectedFormula">Select current Formula:</label>
+          <select
+            className='input-field'
+            id="selectedFormula"
+            name="selectedFormula"
+            value={selectedFormula}
+            onChange={(e) => setSelectedFormula(e.target.value)}
+          >
+            <option value="">Select a formula</option>
+            <option value="oldPrice * 0.9">10% Discount</option>
+            <option value="oldPrice + 100">Add $100</option>
+          
           </select>
           <br />
+          <label htmlFor="selectedFormula">Select New Formula:</label>
+          <select
+            className='input-field'
+            id="selectedFormula"
+            name="selectedFormula"
+            value={selectedFormula}
+            onChange={(e) => setSelectedFormula(e.target.value)}
+          >
+            <option value="">Select a formula</option>
+            <option value="oldPrice * 0.9">10% Discount</option>
+            <option value="oldPrice + 100">Add $100</option>
+          
+          </select>
+          <Button variant='contained'sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button>
+          </div>
+          <div> <h4 style={{ textAlign: 'left' }}>Apply Formula</h4>
+          <label htmlFor="supplierId">Customer ID:</label>
+          <select
+            className="input-field"
+            id="supplierId"
+            name="supplierId"
+            value={supplierId}
+            onChange={(e) => setSupplierId(e.target.value)}
+          >
+            <option value="">Select a customer</option>
+            <option value="supplier1">XYZ</option>
+            <option value="supplier2">TWIP</option>
+      
+          </select>
+          <label htmlFor="selectedFormula">Select current Formula:</label>
+          <select
+            className='input-field'
+            id="selectedFormula"
+            name="selectedFormula"
+            value={selectedFormula}
+            onChange={(e) => setSelectedFormula(e.target.value)}
+          >
+            <option value="">Select a formula</option>
+            <option value="oldPrice * 0.9">10% Discount</option>
+            <option value="oldPrice + 100">Add $100</option>
+          
+          </select>
+         
+     
+          <Button variant='contained' sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button>
+          </div>
+          <div> <h4 style={{ textAlign: 'left' }}>Remove Formula</h4>
+         
+          <label htmlFor="selectedFormula" >Select current Formula:</label>
+          <select
+            className='input-field'
+            id="selectedFormula"
+            name="selectedFormula"
+            value={selectedFormula}
+            onChange={(e) => setSelectedFormula(e.target.value)}
+          >
+            <option value="">Select a formula</option>
+            <option value="oldPrice * 0.9">10% Discount</option>
+            <option value="oldPrice + 100">Add $100</option>
+          
+          </select>
+         
+          <Button variant='contained' sx={{backgroundColor:'#FF4040' ,margin:'10px'}}>Remove Formula</Button>
+          </div>
+       
+       
+          
+{/* <div> <label htmlFor="itemId">Item ID:</label>
+          <select
+            id="itemId"
+            name="itemId"
+            value={itemId}
+            onChange={(e) => setItemId(e.target.value)}
+          >
+            <option value="">Select an item</option>
+            <option value="item1">Item 1</option>
+            <option value="item2">Item 2</option>
+          
+          </select>
           <br />
+         
+          <label htmlFor="selectedFormula">Select New Formula:</label>
+          <select
+            className='input-field'
+            id="selectedFormula"
+            name="selectedFormula"
+            value={selectedFormula}
+            onChange={(e) => setSelectedFormula(e.target.value)}
+          >
+            <option value="">Select a formula</option>
+            <option value="oldPrice * 0.9">10% Discount</option>
+            <option value="oldPrice + 100">Add $100</option>
+       
+          </select>
 
-          <label htmlFor="oldPrice">Old Price:</label>
+        
+          </div> */}
+         
+
+         
+
+          {/* <label htmlFor="oldPrice">Old Price:</label>
           <input
             className='input-field'
             type="number"
@@ -153,11 +295,11 @@ function Information() {
             value={oldPrice}
             onChange={(e) => setOldPrice(parseFloat(e.target.value))} />
           <br />
-          <br />
+          <br /> */}
 
-          <input className="btn-primary" type="button" value="Update Price" onClick={updatePrice}  />
+          {/* <input className="btn-primary" type="button" value="Update Price" onClick={updatePrice}  /> */}
         </form>
-      </div>
+      {/* </div>
       {updatedPrices.length > 0 && (
         <div>
           <h2>Updated Prices</h2>
@@ -173,8 +315,8 @@ function Information() {
                   <th>Select</th>
                 </tr>
               </thead>
-              <tbody>
-                {updatedPrices.map((price, index) => (
+              <tbody> */}
+                {/* {updatedPrices.map((price, index) => (
                   <tr key={index}>
                     <td>{price.supplierId}</td>
                     <td>{price.itemId}</td>
@@ -182,29 +324,29 @@ function Information() {
                     <td>{price.updatedPrice}</td>
                     <td
                       style={{
-                        color: price.percentageChange < 0 ? 'red' : 'green',
-                      }}
-                    >
-                      {price.percentageChange}%
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={selectedRows.includes(price)}
-                        onChange={() => handleRowSelection(index)} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        color: price.percentageChange < 0 ? 'red' : 'green', */}
+            {/* //           }}
+            //         > */}
+            {/* //           {price.percentageChange}%
+            //         </td>
+            //         <td>
+            //           <input */}
+            {/* //             type="checkbox"
+            //             checked={selectedRows.includes(price)}
+            //             onChange={() => handleRowSelection(index)} /> */}
+            {/* //         </td>
+            //       </tr> */}
+            {/* //     ))}
+            //   </tbody> */}
+            {/* </table>
             <br/>
             <button className="btn-primary" onClick={handleApprove}>Approve Selected</button>
           </div>
           <br />
 
-        </div>
-      )}
-
+        </div> */}
+      {/* )} */}
+{/* 
       {masterList.length > 0 && (
         <div>
 
@@ -232,10 +374,11 @@ function Information() {
             </tbody>
           </table>
         </div>
-      )}
+      )} */}
 
-
+</div>
     </div>
+    </>
   );
 }
 

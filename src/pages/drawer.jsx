@@ -109,6 +109,10 @@ export default function DashboardDrawer() {
     <>
       <AppBar  style={{backgroundColor:"#2f4f75"}} position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
+        <IconButton sx={{ color: 'white' }} edge="start" aria-label="open drawer" onClick={toggleDrawer}>
+            
+            <MenuIcon />  
+          </IconButton>
         <Typography textAlign={'center'} className='appbar'>MAVEKO</Typography>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }} />
          
@@ -119,10 +123,7 @@ export default function DashboardDrawer() {
         </Badge>
           </IconButton>
           
-          <IconButton sx={{ color: 'white' }} edge="start" aria-label="open drawer" onClick={toggleDrawer}>
-            
-            <MenuIcon />  
-          </IconButton>
+        
         
         </Toolbar>
       </AppBar>

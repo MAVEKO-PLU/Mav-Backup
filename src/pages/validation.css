@@ -1,0 +1,99 @@
+.container {
+    max-width: 100%;
+  }
+  
+  h2 {
+    margin-top: auto;
+  }
+  
+  .form {
+    display: inline-flex;
+    gap: 30px;
+  }
+  
+  .input-field {
+   
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Add box-sizing to include padding and border in the width */
+  }
+  
+  
+  .btn-primary {
+    padding: 8px 16px;
+    background-color: #161a1f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 1%;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    justify-content: center;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .table td {
+    text-align: center;
+  }
+  
+  .table td:first-child,
+  .table th:first-child {
+    text-align: left;
+  }
+  
+  .table td:last-child,
+  .table th:last-child {
+    white-space: nowrap;
+  }
+  
+  .table input[type="checkbox"] {
+    transform: scale(1.2);
+  }
+  
+  .table input[type="checkbox"]:checked {
+    background-color: #007bff;
+  }
+  
+  .table input[type="checkbox"]:checked:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    transform: rotate(45deg);
+  }
+  
+  .form-container {
+    margin-bottom: 20px;
+    width: 50%;
+  }
+  
+  .table-container {
+    justify-content: center;
+    margin-top: 1%;
+    width: 100%;
+  }
+  
+  h2 {
+    
+    max-width: 20%;
+  }
+  
