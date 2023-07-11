@@ -96,19 +96,21 @@ function Information() {
 
   return (<>
     <DashboardDrawer/>
-    <div className='container' style={{ margin:'95px' }}>
-      <h1>Formula</h1>
+    <div className='container' style={{ margin:'95px',width:'900px' }}>
+      <h1 style={{ textAlign: 'left' }}>Formula</h1>
 
       <div className='form-container '>
         <form className='form'>
-            <div><h4 style={{  textAlign: 'left'  }}>Master List Formula</h4>
+            <div ><h4 style={{  textAlign: 'left'  }}>Master List Formula</h4>
           <label htmlFor="supplierId">Supplier ID:</label>
           <select
             className="input-field"
+          
             id="supplierId"
             name="supplierId"
             value={supplierId}
             onChange={(e) => setSupplierId(e.target.value)}
+            style={{ height: '40px', padding: '10px' , margin: '15px'}}
           >
             <option value="">Select a supplier</option>
             <option value="supplier1">Supplier 1</option>
@@ -122,13 +124,14 @@ function Information() {
             name="selectedFormula"
             value={selectedFormula}
             onChange={(e) => setSelectedFormula(e.target.value)}
+            style={{ height: '40px', padding: '10px' , margin: '15px'}}
           >
             <option value="">Select a formula</option>
             <option value="oldPrice * 0.9">10% Discount</option>
             <option value="oldPrice + 100">Add $100</option>
           
           </select> <Button variant='contained'sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button></div>
-         <div> <h4 style={{ textAlign: 'left' }}>New Customer Formula</h4>
+         <div > <h4 style={{ textAlign: 'left' }}>New Customer Formula</h4>
           <label htmlFor="supplierId">Customer ID:</label>
           <select
             className="input-field"
@@ -136,6 +139,7 @@ function Information() {
             name="supplierId"
             value={supplierId}
             onChange={(e) => setSupplierId(e.target.value)}
+            style={{ height: '40px', padding: '10px' , margin: '15px'}}
           >
             <option value="">Select a customer</option>
             <option value="supplier1">XYZ</option>
@@ -149,6 +153,7 @@ function Information() {
             name="selectedFormula"
             value={selectedFormula}
             onChange={(e) => setSelectedFormula(e.target.value)}
+            style={{ height: '40px', padding: '10px', margin: '15px' }}
           >
             <option value="">Select a formula</option>
             <option value="oldPrice * 0.9">10% Discount</option>
@@ -165,6 +170,7 @@ function Information() {
             name="supplierId"
             value={supplierId}
             onChange={(e) => setSupplierId(e.target.value)}
+            style={{ height: '40px', padding: '10px', margin: '15px' }}
           >
             <option value="">Select a customer</option>
             <option value="supplier1">XYZ</option>
@@ -178,6 +184,7 @@ function Information() {
             name="selectedFormula"
             value={selectedFormula}
             onChange={(e) => setSelectedFormula(e.target.value)}
+            style={{ height: '40px', padding: '10px', margin: '15px' }}
           >
             <option value="">Select a formula</option>
             <option value="oldPrice * 0.9">10% Discount</option>
@@ -192,6 +199,7 @@ function Information() {
             name="selectedFormula"
             value={selectedFormula}
             onChange={(e) => setSelectedFormula(e.target.value)}
+            style={{ height: '40px', padding: '10px', margin: '15px' }}
           >
             <option value="">Select a formula</option>
             <option value="oldPrice * 0.9">10% Discount</option>
@@ -208,6 +216,7 @@ function Information() {
             name="supplierId"
             value={supplierId}
             onChange={(e) => setSupplierId(e.target.value)}
+            style={{ height: '40px', padding: '10px', margin: '15px' }}
           >
             <option value="">Select a customer</option>
             <option value="supplier1">XYZ</option>
@@ -221,6 +230,7 @@ function Information() {
             name="selectedFormula"
             value={selectedFormula}
             onChange={(e) => setSelectedFormula(e.target.value)}
+            style={{ height: '40px', padding: '10px', margin: '15px' }}
           >
             <option value="">Select a formula</option>
             <option value="oldPrice * 0.9">10% Discount</option>
@@ -240,6 +250,7 @@ function Information() {
             name="selectedFormula"
             value={selectedFormula}
             onChange={(e) => setSelectedFormula(e.target.value)}
+            style={{ height: '40px', padding: '10px', margin: '15px'}}
           >
             <option value="">Select a formula</option>
             <option value="oldPrice * 0.9">10% Discount</option>
