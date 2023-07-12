@@ -1,9 +1,7 @@
-import  { useState} from 'react';
-import Button from "@mui/material/Button"
+import { useState } from 'react';
+import Button from "@mui/material/Button";
 import DashboardDrawer from './drawer';
 
-
-// import './validation.css'
 function Information() {
   const [supplierId, setSupplierId] = useState('');
   const [itemId, setItemId] = useState('');
@@ -94,301 +92,173 @@ function Information() {
     }
   };
 
-  return (<>
-    <DashboardDrawer/>
-    <div className='container' style={{ margin:'95px',width:'900px' }}>
-      <h1 style={{ textAlign: 'left' }}>Formula</h1>
+  return (
+    <>
+      <DashboardDrawer />
+      <h1 style={{ textAlign: 'left', margin: '100px' }}>Customer Formula</h1>
+      <div className='container' style={{ margin: '100px', width: '1000px', boxShadow:'50px' }}>
+        <div className='form-container'>
+          <form className='form'>
+            <div>
+              <div style={{ marginTop: '50px', marginBottom: '80px' }}>
+                <h3 style={{ textAlign: 'left' }}>Master List Formula</h3>
+                <div style={{marginLeft:'-300px'}}><select
+                  className="input-field"
+                  id="supplierId"
+                  name="supplierId"
+                  value={supplierId}
+                  onChange={(e) => setSupplierId(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px', borderRadius:'4px' }}
+                >
+                  <option value="">Choose Supplier </option>
+                  <option value="supplier1">Supplier 1</option>
+                  <option value="supplier2">Supplier 2</option>
+                </select>
+            
+                <select
+                  className='input-field'
+                  id="selectedFormula"
+                  name="selectedFormula"
+                  value={selectedFormula}
+                  onChange={(e) => setSelectedFormula(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px', width:'350px', borderRadius:'4px' }}
+                >
+                  <option value="">Choose Formula</option>
+                  <option value="oldPrice * 0.9">10% Discount</option>
+                  <option value="oldPrice + 100">Add $100</option>
+                </select>
+                <Button variant='contained' sx={{ backgroundColor: '#05184C', margin: '10px', height:'42px' }}>Apply Formula</Button>
+              </div>
+                 </div>
 
-      <div className='form-container '>
-        <form className='form'>
-            <div ><h4 style={{  textAlign: 'left'  }}>Master List Formula</h4>
-          <label htmlFor="supplierId">Supplier ID:</label>
-          <select
-            className="input-field"
-          
-            id="supplierId"
-            name="supplierId"
-            value={supplierId}
-            onChange={(e) => setSupplierId(e.target.value)}
-            style={{ height: '40px', padding: '10px' , margin: '15px'}}
-          >
-            <option value="">Select a supplier</option>
-            <option value="supplier1">Supplier 1</option>
-            <option value="supplier2">Supplier 2</option>
-           
-          </select>    
-          <label htmlFor="selectedFormula">Select New Formula:</label>
-          <select
-            className='input-field'
-            id="selectedFormula"
-            name="selectedFormula"
-            value={selectedFormula}
-            onChange={(e) => setSelectedFormula(e.target.value)}
-            style={{ height: '40px', padding: '10px' , margin: '15px'}}
-          >
-            <option value="">Select a formula</option>
-            <option value="oldPrice * 0.9">10% Discount</option>
-            <option value="oldPrice + 100">Add $100</option>
-          
-          </select> <Button variant='contained'sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button></div>
-         <div > <h4 style={{ textAlign: 'left' }}>New Customer Formula</h4>
-          <label htmlFor="supplierId">Customer ID:</label>
-          <select
-            className="input-field"
-            id="supplierId"
-            name="supplierId"
-            value={supplierId}
-            onChange={(e) => setSupplierId(e.target.value)}
-            style={{ height: '40px', padding: '10px' , margin: '15px'}}
-          >
-            <option value="">Select a customer</option>
-            <option value="supplier1">XYZ</option>
-            <option value="supplier2">TWIP</option>
-      
-          </select>
-          <label htmlFor="selectedFormula">Select New Formula:</label>
-          <select
-            className='input-field'
-            id="selectedFormula"
-            name="selectedFormula"
-            value={selectedFormula}
-            onChange={(e) => setSelectedFormula(e.target.value)}
-            style={{ height: '40px', padding: '10px', margin: '15px' }}
-          >
-            <option value="">Select a formula</option>
-            <option value="oldPrice * 0.9">10% Discount</option>
-            <option value="oldPrice + 100">Add $100</option>
-          
-          </select>
-          <Button variant='contained'sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button>
-          </div>
-          <div> <h4 style={{ textAlign: 'left' }}>Update Customer Formula</h4>
-          <label htmlFor="supplierId">Customer ID:</label>
-          <select
-            className="input-field"
-            id="supplierId"
-            name="supplierId"
-            value={supplierId}
-            onChange={(e) => setSupplierId(e.target.value)}
-            style={{ height: '40px', padding: '10px', margin: '15px' }}
-          >
-            <option value="">Select a customer</option>
-            <option value="supplier1">XYZ</option>
-            <option value="supplier2">TWIP</option>
-      
-          </select>
-          <label htmlFor="selectedFormula">Select current Formula:</label>
-          <select
-            className='input-field'
-            id="selectedFormula"
-            name="selectedFormula"
-            value={selectedFormula}
-            onChange={(e) => setSelectedFormula(e.target.value)}
-            style={{ height: '40px', padding: '10px', margin: '15px' }}
-          >
-            <option value="">Select a formula</option>
-            <option value="oldPrice * 0.9">10% Discount</option>
-            <option value="oldPrice + 100">Add $100</option>
-          
-          </select>
-          <br />
-          <label htmlFor="selectedFormula">Select New Formula:</label>
-          <select
-            className='input-field'
-            id="selectedFormula"
-            name="selectedFormula"
-            value={selectedFormula}
-            onChange={(e) => setSelectedFormula(e.target.value)}
-            style={{ height: '40px', padding: '10px', margin: '15px' }}
-          >
-            <option value="">Select a formula</option>
-            <option value="oldPrice * 0.9">10% Discount</option>
-            <option value="oldPrice + 100">Add $100</option>
-          
-          </select>
-          <Button variant='contained'sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button>
-          </div>
-          <div> <h4 style={{ textAlign: 'left' }}>Apply Formula</h4>
-          <label htmlFor="supplierId">Customer ID:</label>
-          <select
-            className="input-field"
-            id="supplierId"
-            name="supplierId"
-            value={supplierId}
-            onChange={(e) => setSupplierId(e.target.value)}
-            style={{ height: '40px', padding: '10px', margin: '15px' }}
-          >
-            <option value="">Select a customer</option>
-            <option value="supplier1">XYZ</option>
-            <option value="supplier2">TWIP</option>
-      
-          </select>
-          <label htmlFor="selectedFormula">Select current Formula:</label>
-          <select
-            className='input-field'
-            id="selectedFormula"
-            name="selectedFormula"
-            value={selectedFormula}
-            onChange={(e) => setSelectedFormula(e.target.value)}
-            style={{ height: '40px', padding: '10px', margin: '15px' }}
-          >
-            <option value="">Select a formula</option>
-            <option value="oldPrice * 0.9">10% Discount</option>
-            <option value="oldPrice + 100">Add $100</option>
-          
-          </select>
-         
-     
-          <Button variant='contained' sx={{backgroundColor:'#05184C',margin:'10px'}}>Apply Formula</Button>
-          </div>
-          <div> <h4 style={{ textAlign: 'left' }}>Remove Formula</h4>
-         
-          <label htmlFor="selectedFormula" >Select current Formula:</label>
-          <select
-            className='input-field'
-            id="selectedFormula"
-            name="selectedFormula"
-            value={selectedFormula}
-            onChange={(e) => setSelectedFormula(e.target.value)}
-            style={{ height: '40px', padding: '10px', margin: '15px'}}
-          >
-            <option value="">Select a formula</option>
-            <option value="oldPrice * 0.9">10% Discount</option>
-            <option value="oldPrice + 100">Add $100</option>
-          
-          </select>
-         
-          <Button variant='contained' sx={{backgroundColor:'#FF4040' ,margin:'10px'}}>Remove Formula</Button>
-          </div>
-       
-       
-          
-{/* <div> <label htmlFor="itemId">Item ID:</label>
-          <select
-            id="itemId"
-            name="itemId"
-            value={itemId}
-            onChange={(e) => setItemId(e.target.value)}
-          >
-            <option value="">Select an item</option>
-            <option value="item1">Item 1</option>
-            <option value="item2">Item 2</option>
-          
-          </select>
-          <br />
-         
-          <label htmlFor="selectedFormula">Select New Formula:</label>
-          <select
-            className='input-field'
-            id="selectedFormula"
-            name="selectedFormula"
-            value={selectedFormula}
-            onChange={(e) => setSelectedFormula(e.target.value)}
-          >
-            <option value="">Select a formula</option>
-            <option value="oldPrice * 0.9">10% Discount</option>
-            <option value="oldPrice + 100">Add $100</option>
-       
-          </select>
+              <div style={{ marginTop: '50px', marginBottom: '80px' }}>
+                <h3 style={{ textAlign: 'left' }}>New Formula</h3>
+              <div style={{marginLeft:'-300px'}}> <select
+                  className="input-field"
+                  id="supplierId"
+                  name="supplierId"
+                  value={supplierId}
+                  onChange={(e) => setSupplierId(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px', borderRadius:'4px' }}
+                >
+                  <option value="" >Choose customer</option>
+                  <option value="supplier1">XYZ</option>
+                  <option value="supplier2">TWIP</option>
+                </select>
+            
+                <select
+                  className='input-field'
+                  id="selectedFormula"
+                  name="selectedFormula"
+                  value={selectedFormula}
+                  onChange={(e) => setSelectedFormula(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px', width:'350px', borderRadius:'4px' }}
+                >
+                  <option value="">Select a formula</option>
+                  <option value="oldPrice * 0.9">10% Discount</option>
+                  <option value="oldPrice + 100">Add $100</option>
+                </select>
+                <Button variant='contained' sx={{ backgroundColor: '#05184C', margin: '10px', height:'42px' }}>Apply Formula</Button>
+             </div>
+                </div>
 
-        
-          </div> */}
-         
+              <div style={{ marginTop: '50px', marginBottom: '80px' }}>
+                <h3 style={{ textAlign: 'left' }}>Update Customer Formula</h3>
+              <div style={{marginLeft:'-470px'}}> <select
+                  className="input-field"
+                  id="supplierId"
+                  name="supplierId"
+                  value={supplierId}
+                  onChange={(e) => setSupplierId(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px', borderRadius:'4px' }}
+                >
+                  <option value="">Choose Customer</option>
+                  <option value="supplier1">XYZ</option>
+                  <option value="supplier2">TWIP</option>
+                </select>
 
-         
+                <select
+                  className='input-field'
+                  id="selectedFormula"
+                  name="selectedFormula"
+                  value={selectedFormula}
+                  onChange={(e) => setSelectedFormula(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px' , width:'350px', borderRadius:'4px'}}
+                >
+                  <option value=""> Current Formula</option>
+                  <option value="oldPrice * 0.9">10% Discount</option>
+                  <option value="oldPrice + 100">Add $100</option>
+                </select>
+                <br />
+              
+                <select
+                  className='input-field'
+                  id="selectedFormula"
+                  name="selectedFormula"
+                  value={selectedFormula}
+                  onChange={(e) => setSelectedFormula(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px', width:'365px', borderRadius:'4px' }}
+                >
+                  <option value="">Updated Formula</option>
+                  <option value="oldPrice * 0.9">10% Discount</option>
+                  <option value="oldPrice + 100">Add $100</option>
+                </select>
+                <Button variant='contained' sx={{ backgroundColor: '#05184C', margin: '10px', height:'42px' }}>Apply Formula</Button>
+              </div>
+               </div>
 
-          {/* <label htmlFor="oldPrice">Old Price:</label>
-          <input
-            className='input-field'
-            type="number"
-            id="oldPrice"
-            name="oldPrice"
-            value={oldPrice}
-            onChange={(e) => setOldPrice(parseFloat(e.target.value))} />
-          <br />
-          <br /> */}
+              <div style={{ marginTop: '50px', marginBottom: '80px' }}>
+                <h3 style={{ textAlign: 'left' }}>Apply Formula</h3>
+             <div style={{marginLeft:'-300px'}}> <select
+                  className="input-field"
+                  id="supplierId"
+                  name="supplierId"
+                  value={supplierId}
+                  onChange={(e) => setSupplierId(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px', borderRadius:'4px' }}
+                >
+                  <option value="">Choose Customer</option>
+                  <option value="supplier1">XYZ</option>
+                  <option value="supplier2">TWIP</option>
+                </select>
+               
+                <select
+                  className='input-field'
+                  id="selectedFormula"
+                  name="selectedFormula"
+                  value={selectedFormula}
+                  onChange={(e) => setSelectedFormula(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px' , width:'350px', borderRadius:'4px'}}
+                >
+                  <option value="">Choose Formula</option>
+                  <option value="oldPrice * 0.9">10% Discount</option>
+                  <option value="oldPrice + 100">Add $100</option>
+                </select>
+                <Button variant='contained' sx={{ backgroundColor: '#05184C', margin: '10px', height:'42px' }}>Apply Formula</Button>
+              </div>
+               </div>
 
-          {/* <input className="btn-primary" type="button" value="Update Price" onClick={updatePrice}  /> */}
-        </form>
-      {/* </div>
-      {updatedPrices.length > 0 && (
-        <div>
-          <h2>Updated Prices</h2>
-          <div className='table-container'>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Supplier ID</th>
-                  <th>Item ID</th>
-                  <th>Old Price</th>
-                  <th>Updated Price</th>
-                  <th>Percentage Change</th>
-                  <th>Select</th>
-                </tr>
-              </thead>
-              <tbody> */}
-                {/* {updatedPrices.map((price, index) => (
-                  <tr key={index}>
-                    <td>{price.supplierId}</td>
-                    <td>{price.itemId}</td>
-                    <td>{price.oldPrice}</td>
-                    <td>{price.updatedPrice}</td>
-                    <td
-                      style={{
-                        color: price.percentageChange < 0 ? 'red' : 'green', */}
-            {/* //           }}
-            //         > */}
-            {/* //           {price.percentageChange}%
-            //         </td>
-            //         <td>
-            //           <input */}
-            {/* //             type="checkbox"
-            //             checked={selectedRows.includes(price)}
-            //             onChange={() => handleRowSelection(index)} /> */}
-            {/* //         </td>
-            //       </tr> */}
-            {/* //     ))}
-            //   </tbody> */}
-            {/* </table>
-            <br/>
-            <button className="btn-primary" onClick={handleApprove}>Approve Selected</button>
-          </div>
-          <br />
-
-        </div> */}
-      {/* )} */}
-{/* 
-      {masterList.length > 0 && (
-        <div>
-
-          <h2>Master List</h2>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Supplier ID</th>
-                <th>Item ID</th>
-                <th>Old Price</th>
-                <th>Updated Price</th>
-                <th>Percentage Change</th>
-              </tr>
-            </thead>
-            <tbody>
-              {masterList.map((row, index) => (
-                <tr key={index}>
-                  <td>{row.supplierId}</td>
-                  <td>{row.itemId}</td>
-                  <td>{row.oldPrice}</td>
-                  <td>{row.updatedPrice}</td>
-                  <td>{row.percentageChange}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+              <div style={{ marginTop: '50px', marginBottom: '80px' }}>
+                <h3 style={{ textAlign: 'left' }}>Remove Formula</h3>
+<div style={{marginLeft:'-460px'}}> <select
+                  className='input-field'
+                  id="selectedFormula"
+                  name="selectedFormula"
+                  value={selectedFormula}
+                  onChange={(e) => setSelectedFormula(e.target.value)}
+                  style={{ height: '40px', padding: '10px', margin: '15px', width:'350px', borderRadius:'4px' }}
+                >
+                  <option value="">Select a formula</option>
+                  <option value="oldPrice * 0.9">10% Discount</option>
+                  <option value="oldPrice + 100">Add $100</option>
+                </select>
+                <Button variant='contained' sx={{ backgroundColor: '#FF4040', margin: '10px', height:'42px' }}>Remove Formula</Button>
+              </div>
+               </div>
+            </div>
+          </form>
         </div>
-      )} */}
-
-</div>
-    </div>
+      </div>
     </>
   );
 }
