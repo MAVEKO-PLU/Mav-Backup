@@ -91,7 +91,8 @@ export default function MasterList() {
 
       <DashboardDrawer />
       <div className="inB" style={{ margin: "45px" }}>
-        <h1>Approval List</h1>
+        <h1>Supplier Items</h1>
+        <h3>12/08/23</h3>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>

@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton component={Link} to="/dash">
+    <div style={{marginLeft:'10px'}}>   <ListItemButton component={Link} to="/dash">
       <ListItemIcon style={{ color: '#05184C' }}>
         <DashboardIcon />
       </ListItemIcon>
@@ -45,7 +45,8 @@ export const mainListItems = (
         <PriceCheck />
       </ListItemIcon>
       <ListItemText primary="SEARCH" />
-    </ListItemButton>
+    </ListItemButton></div>
+ 
   </React.Fragment>
 );
 

@@ -132,20 +132,26 @@ export default function CustomerList() {
                 <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
                   Dimensions
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                {/* <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
                   Article Group
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                </TableCell> */}
+                {/* <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
                   Tax Class
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                </TableCell> */}
+                {/* <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
                   Weight
+                </TableCell> */}
+                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+               Unit of Measure
                 </TableCell>
                 <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
-                  Old Price
+                 Current Price
                 </TableCell>
                 <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
                   New Price
+                </TableCell>
+                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                 Price Valid From 
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -160,11 +166,14 @@ export default function CustomerList() {
                   <TableCell>{row.item.item_name}</TableCell>
                   <TableCell>{row.item.item_description}</TableCell>
                   <TableCell>{row.item.dimensions}</TableCell>
-                  <TableCell>{row.item.article_group}</TableCell>
+                  {/* <TableCell>{row.item.article_group}</TableCell>
                   <TableCell>{row.item.tax_class}</TableCell>
-                  <TableCell>{row.item.weight}</TableCell>
+                  <TableCell>{row.item.weight}</TableCell> */}
+                  <TableCell>{row.pricing.unit}</TableCell>
                   <TableCell>{row.pricing.old_retail_price}</TableCell>
                   <TableCell>{row.pricing.new_retail_price}</TableCell>
+                  <TableCell>{row.pricing.new_retail_price_valid_from}</TableCell>
+
                 </TableRow>
               ))}
             </TableBody>
@@ -196,33 +205,33 @@ export default function CustomerList() {
               <Table>
                 <TableBody>
                   <TableRow>
-                    <TableCell component="th" scope="row">
+                    {/* <TableCell component="th" scope="row">
                       Old Retail Price:
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       {selectedItem.pricing.old_retail_price}
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell component="th" scope="row">
+                    {/* <TableCell component="th" scope="row">
                       New Retail Price:
-                    </TableCell>
-                    <TableCell>
+                    </TableCell> */}
+                    {/* <TableCell>
                       {selectedItem.pricing.new_retail_price}
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                   <TableRow>
-                    <TableCell component="th" scope="row">
+                    {/* <TableCell component="th" scope="row">
                       New Retail Price Valid from:
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       {selectedItem.pricing.new_retail_price_valid_from}
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell component="th" scope="row">
+                    {/* <TableCell component="th" scope="row">
                       New Retail Price Valid to:
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       {selectedItem.pricing.new_retail_price_valid_to}
                     </TableCell>
@@ -235,7 +244,7 @@ export default function CustomerList() {
                       {selectedItem.pricing.change_in_percentage}
                     </TableCell>
                   </TableRow>
-                </TableBody>x
+                </TableBody>
               </Table>
             )}
           </DialogContent>

@@ -25,6 +25,7 @@ import MuiAlert from "@mui/material/Alert";
 import DashboardDrawer from "./drawer"
 import CheckIcon from "@mui/icons-material/Check";
 import RejectIcon from "@mui/icons-material/HighlightOff";
+import axios from "axios";
 
 export default function SupplierList() {
   const [data, setData] = useState([]);
@@ -44,18 +45,41 @@ export default function SupplierList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchSL();
-      setData(response);
+      try {
+        const response = await axios.get("https://fakerapi.dev/api/products?_quantity=10");
+        setData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data from Faker API:", error);
+      }
     };
 
     fetchData();
   }, []);
   const handleTick = (row) => {
-    // Handle tick action
+    if (row.status === 'pending') {
+     
+      row.status = 'approved';
+  
+  
+      axios.put('/api/items/' + row.id, { status: 'approved' })
+        .then(response => {
+       
+        })
+        .catch(error => {
+         
+        });}
   };
 
   const handleReject = (row) => {
-    // Handle reject action
+    if (row.status === 'pending') {
+     row.status = 'rejected';
+      axios.put('/api/items/' + row.id, { status: 'rejected' })
+        .then(response => {
+        
+        })
+        .catch(error => {
+      
+        });}
   };
   const handleIconClick = (item) => {
     setSelectedItem(item);
@@ -168,7 +192,7 @@ export default function SupplierList() {
                   <TableCell>{row.item.dimensions}</TableCell>
                   <TableCell>{row.item.article_group}</TableCell>
                   <TableCell>{row.item.tax_class}</TableCell>
-                  <TableCell>{row.item.weight}</TableCell>
+                  <TableCell>{row.price}</TableCell>
                   <TableCell>{row.pricing.old_purchase_price}</TableCell>
                   <TableCell>{row.pricing.new_purchase_price}</TableCell>
                   <TableCell>

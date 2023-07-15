@@ -55,7 +55,7 @@ export default function MasterList() {
 
   return (
     <>
-      {/* <NavBar></NavBar> */}
+    
       
       <DashboardDrawer/>
       <div
