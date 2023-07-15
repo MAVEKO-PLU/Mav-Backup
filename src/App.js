@@ -8,7 +8,6 @@ import Approval from './pages/Approval.jsx'
 import Validation from "./pages/validation.jsx";
 
 import Notify from "./pages/notification.jsx";
-import ExcelImportPage from './pages/excel.jsx';
 // 
 function App() {
   return (
@@ -22,7 +21,7 @@ function App() {
         <Route path="/notification" element={<Notify/>} />
         <Route path="/approval" element={<Approval />} />
         <Route path="/validation" element={<Validation />} />
-        <Route path="/ExcelImportPage" element={<ExcelImportPage />} />
+     
    
 
 
