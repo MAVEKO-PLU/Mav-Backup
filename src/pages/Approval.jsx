@@ -22,9 +22,57 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import ClearIcon from "@mui/icons-material/Clear";
 import Checkbox from "@mui/material/Checkbox";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import axios from "axios";
+import IconButton from "@mui/material/IconButton";
+import CheckIcon from "@mui/icons-material/Check";
+import RejectIcon from "@mui/icons-material/HighlightOff";
+
+const mockData = [
+  {
+    item: {
+      id: 1,
+      item_code: "ABC001",
+      decor_code: "DEC001",
+      item_name: "Product 1",
+      item_description: "Description of Product 1",
+      image: "product1.jpg",
+      dimensions: "10x10x10",
+      article_group: "Group 1",
+      tax_class: "Tax Class 1",
+      status: "pending",
+      unit: "pcs",
+    },
+    price: 50,
+    pricing: {
+      old_purchase_price: 40,
+      new_purchase_price: 45,
+    },
+  },
+  {
+    item: {
+      id: 2,
+      status: "pending",
+      item_code: "ABC002",
+      decor_code: "DEC002",
+      item_name: "Product 2",
+      item_description: "Description of Product 2",
+      image: "product2.jpg",
+      dimensions: "20x20x20",
+      article_group: "Group 2",
+      tax_class: "Tax Class 2",
+      unit: "pcs",
+    },
+    price: 60,
+    pricing: {
+      old_purchase_price: 55,
+      new_purchase_price: 58,
+    },
+  },
+  // Add more items as needed
+];
 
 export default function MasterList() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(mockData);
   const [rows, setRows] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -47,14 +95,16 @@ export default function MasterList() {
 
   const handleApprovedStatus = async () => {
     const updatedRows = data.map((row) => {
-      if (row.checked) {
-        return { ...row, status: "Approved" };
+      if (row.checked && row.item.status === 'pending') {
+        return { ...row, item: { ...row.item, status: 'Approved' } };
       }
       return row;
     });
-
+  
     await setData(updatedRows);
   };
+  
+
   const handleNegotiatedStatus = async () => {
     const updatedRows = data.map((row) => {
       if (row.checked) {
@@ -64,15 +114,70 @@ export default function MasterList() {
     });
     setData(updatedRows);
   };
-  const handleRejectedStatus = async () => {
+  const handleTick = (row) => {
+    if (row.item.status === 'pending'|| row.item.status === 'Rejected') {
+      const updatedRow = { ...row, item: { ...row.item, status: 'Approved' } };
+  
+      axios
+        .put('/api/items/' + row.item.id, { status: 'Approved' })
+        .then(response => {
+          // Handle success response if needed
+        })
+        .catch(error => {
+          // Handle error if needed
+        });
+  
+      setData(prevData => {
+        const updatedData = prevData.map(prevRow => {
+          if (prevRow.item.id === row.item.id) {
+            return updatedRow;
+          }
+          return prevRow;
+        });
+        return updatedData;
+      });
+    }
+  };
+  
+
+  const handleReject = (row) => {
+    if (row.item.status === 'pending' || row.item.status === 'approved') {
+      const updatedRow = { ...row, item: { ...row.item, status: 'Rejected' } };
+  
+      axios
+        .put('/api/items/' + row.item.id, { status: 'Rejected' })
+        .then(response => {
+          // Handle success response if needed
+        })
+        .catch(error => {
+          // Handle error if needed
+        });
+  
+      setData(prevData => {
+        const updatedData = prevData.map(prevRow => {
+          if (prevRow.item.id === row.item.id) {
+            return updatedRow;
+          }
+          return prevRow;
+        });
+        return updatedData;
+      });
+    }
+  };
+  
+
+  const handleRejectedStatus = () => {
     const updatedRows = data.map((row) => {
-      if (row.checked) {
-        return { ...row, status: "Rejected" };
+      if (row.checked && row.item.status === 'pending') {
+        return { ...row, item: { ...row.item, status: "Rejected" } };
       }
       return row;
     });
+  
     setData(updatedRows);
   };
+  
+
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
@@ -97,33 +202,56 @@ export default function MasterList() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
+                <TableCell
+                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                >
                   Item Code
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
+                <TableCell
+                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                >
                   Item Name
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
+                <TableCell
+                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                >
                   Item Description
                 </TableCell>
 
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
+                <TableCell
+                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                >
                   Old Price
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
+                <TableCell
+                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                >
                   New Price
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
+                <TableCell
+                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                >
+                  Unit of Measure
+                </TableCell>
+                <TableCell
+                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                >
                   Status
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  View
+
+                <TableCell
+                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                >
+                  Action
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {paginatedRows.map((row) => (
-                <TableRow key={row.item.id} onClick={() => handleRowClick(row)}>
+                <TableRow
+                  key={row.item.id}
+                  onClick={() => handleRowClick(row)}
+                >
                   <TableCell>{row.item.item_code}</TableCell>
 
                   <TableCell>{row.item.item_name}</TableCell>
@@ -131,22 +259,41 @@ export default function MasterList() {
 
                   <TableCell>{row.pricing.old_purchase_price}</TableCell>
                   <TableCell>{row.pricing.new_purchase_price}</TableCell>
-                  <TableCell>{row.status}</TableCell>
+                  <TableCell>{row.item.unit}</TableCell>
+                  <TableCell>{row.item.status}</TableCell>
+
+
                   <TableCell>
+                    <IconButton
+                      sx={{ color: "green" }}
+                      onClick={() => handleTick(row)}
+                    >
+                      <CheckIcon />
+                    </IconButton>
+                    <IconButton
+                      sx={{ color: "red" }}
+                      onClick={() => handleReject(row)}
+                    >
+                      <RejectIcon />
+                    </IconButton>
+
                     <Checkbox
-                      checked={row.checked}
-                      onChange={() =>
-                        setData((prevRows) => {
-                          const updatedRows = prevRows.map((prevRow) => {
-                            if (prevRow.id === row.id) {
-                              return { ...prevRow, checked: !prevRow.checked };
-                            }
-                            return prevRow;
-                          });
-                          return updatedRows;
-                        })
-                      }
-                    />
+          checked={row.checked}
+          onChange={() =>
+            setData((prevRows) => {
+              const updatedRows = prevRows.map((prevRow) => {
+                if (prevRow.item.id === row.item.id) {
+                  return {
+                    ...prevRow,
+                    checked: !prevRow.checked,
+                  };
+                }
+                return prevRow;
+              });
+              return updatedRows;
+            })
+          }
+        />
                   </TableCell>
                 </TableRow>
               ))}
