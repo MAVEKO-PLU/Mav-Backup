@@ -23,6 +23,8 @@ import UpdateIcon from "@mui/icons-material/Update";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import DashboardDrawer from "./drawer"
+import CheckIcon from "@mui/icons-material/Check";
+import RejectIcon from "@mui/icons-material/HighlightOff";
 
 export default function SupplierList() {
   const [data, setData] = useState([]);
@@ -48,7 +50,13 @@ export default function SupplierList() {
 
     fetchData();
   }, []);
+  const handleTick = (row) => {
+    // Handle tick action
+  };
 
+  const handleReject = (row) => {
+    // Handle reject action
+  };
   const handleIconClick = (item) => {
     setSelectedItem(item);
     setDialogOpen(true);
@@ -139,6 +147,9 @@ export default function SupplierList() {
                 <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
                   Update
                 </TableCell>
+                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
+                 Action
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -160,6 +171,14 @@ export default function SupplierList() {
                   <TableCell>{row.item.weight}</TableCell>
                   <TableCell>{row.pricing.old_purchase_price}</TableCell>
                   <TableCell>{row.pricing.new_purchase_price}</TableCell>
+                  <TableCell>
+                  <IconButton onClick={() => handleTick(selectedItem)}>
+                    <CheckIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleReject(selectedItem)}>
+                    <RejectIcon />
+                  </IconButton>
+                </TableCell>
                   <TableCell>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <TextField
