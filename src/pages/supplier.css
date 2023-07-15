@@ -1,5 +1,9 @@
-.inB {
-    margin: 45px;
+.table-cell {
+    border: 1px solid #000;
+    padding: 8px;
+  }
+  
+  .inB {
     position: relative;
   }
   
@@ -14,10 +18,21 @@
   }
   
   .upload-button {
-    background-color: #f50057;
+    background-color: #063970;
     color: #fff;
-    &:hover {
-      background-color: #ff4081;
-    }
+  }
+  
+  .upload-button:hover {
+    background-color: #ff4081;
+  }
+  
+  .upload-date-container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .upload-date {
+    font-weight: bold;
+    margin-bottom: 8px;
   }
   
