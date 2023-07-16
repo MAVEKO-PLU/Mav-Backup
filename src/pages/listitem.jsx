@@ -13,10 +13,11 @@ import { PriceChange, PriceCheck, Search } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import dashboard from './dashboard';
 import { useNavigate } from "react-router-dom";
+import SchemaIcon from '@mui/icons-material/Schema';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton component={Link} to="/dash">
+    <div style={{marginLeft:'10px'}}>   <ListItemButton component={Link} to="/dash">
       <ListItemIcon style={{ color: '#05184C' }}>
         <DashboardIcon />
       </ListItemIcon>
@@ -46,6 +47,13 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="SEARCH" />
     </ListItemButton>
+    <ListItemButton component={Link} to="/validation">
+      <ListItemIcon style={{ color: '#05184C' }}>
+        <SchemaIcon/>
+      </ListItemIcon>
+      <ListItemText primary="FORMULA" />
+    </ListItemButton></div>
+ 
   </React.Fragment>
 );
 

@@ -3,6 +3,7 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
+import Checkbox from "@mui/material/Checkbox";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
@@ -12,10 +13,58 @@ import * as XLSX from "xlsx";
 import "./supplier.css";
 import Pagination from "@mui/material/Pagination";
 
-export default function Supplier() {
+import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import PackageIcon from "@mui/icons-material/LocalShipping";
+import TextField from "@mui/material/TextField";
+import UpdateIcon from "@mui/icons-material/Update";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import DashboardDrawer from "./drawer"
+import CheckIcon from "@mui/icons-material/Check";
+import RejectIcon from "@mui/icons-material/HighlightOff";
+import axios from "axios";
+
+const mockData = [
+  {
+    item: {
+      id: 1,
+      reference_No: "REF001",
+      Supplier_Name: "Supplier 1",
+      Received_date: "2023-07-01",
+      status: "pending",
+    },
+    pricing: {
+      effective_as_of: "2023-08-01",
+    },
+  },
+  {
+    item: {
+      id: 2,
+      reference_No: "REF002",
+      Supplier_Name: "Supplier 2",
+      Received_date: "2023-07-02",
+      status: "pending",
+    },
+    pricing: {
+      effective_as_of: "2023-08-01",
+    },
+  },
+  // Add more items as needed
+];
+
+
+export default function SupplierList() {
+  const [data, setData] = useState(mockData);
+  const [state, setState] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [currentFile, setCurrentFile] = useState(null);
   const [fileData, setFileData] = useState([]);
+
+
+
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(10);
   const [maxColumns] = useState(5); // Maximum number of columns to display
@@ -24,6 +73,7 @@ export default function Supplier() {
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
+
 
     // Update the file list
     setFiles((prevFiles) => [...prevFiles, file]);
@@ -37,9 +87,64 @@ export default function Supplier() {
       const worksheet = workbook.Sheets[sheetName];
       const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
+
       // Perform any desired logic with the file data
       console.log("Uploaded File:", file.name);
       console.log("File Data:", data);
+
+
+  
+  const handleTick = (row) => {
+    if (row.item.status === 'pending'|| row.item.status === 'Rejected') {
+      const updatedRow = { ...row, item: { ...row.item, status: 'Approved' } };
+  
+      axios
+        .put('/api/items/' + row.item.id, { status: 'Approved' })
+        .then(response => {
+          // Handle success response if needed
+        })
+        .catch(error => {
+          // Handle error if needed
+        });
+  
+      setData(prevData => {
+        const updatedData = prevData.map(prevRow => {
+          if (prevRow.item.id === row.item.id) {
+            return updatedRow;
+          }
+          return prevRow;
+        });
+        return updatedData;
+      });
+    }
+  };
+  const handleReject = (row) => {
+    if (row.item.status === 'pending' || row.item.status === 'Approved') {
+      const updatedRow = { ...row, item: { ...row.item, status: 'Rejected' } };
+  
+      axios
+        .put('/api/items/' + row.item.id, { status: 'Rejected' })
+        .then(response => {
+          // Handle success response if needed
+        })
+        .catch(error => {
+          // Handle error if needed
+        });
+  
+      setData(prevData => {
+        const updatedData = prevData.map(prevRow => {
+          if (prevRow.item.id === row.item.id) {
+            return updatedRow;
+          }
+          return prevRow;
+        });
+        return updatedData;
+      });
+    }
+  };
+  const handleIconClick = (item) => {
+    setSelectedItem(item);
+    setDialogOpen(true);
 
       // Set the upload date
       setUploadDate(new Date());
@@ -48,6 +153,7 @@ export default function Supplier() {
       console.error("Error reading file:", event.target.error);
     };
     reader.readAsBinaryString(file);
+
   };
 
   const handleFileClick = (file) => {
@@ -224,6 +330,29 @@ export default function Supplier() {
           <Table sx={{ minWidth: 650 }} aria-label="file table">
             <TableHead>
               <TableRow>
+
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                  <PackageIcon sx={{ color: "#fff", paddingTop: "8px", paddingLeft: "8px", }} />
+                </TableCell>
+             
+               <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                Reference No
+                </TableCell>
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                 Supplier Name
+                </TableCell>
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+               Received Date
+                </TableCell>
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                  Effective as Of
+                </TableCell>
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                Status
+                </TableCell>
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                 Actions
+
                 <TableCell
                   sx={{
                     backgroundColor: "#063970",
@@ -245,10 +374,12 @@ export default function Supplier() {
                   }}
                 >
                   Upload Date
+
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
+
               {files.map((file, index) => (
                 <TableRow
                   key={index}
@@ -257,6 +388,7 @@ export default function Supplier() {
                 >
                   <TableCell>{file.name}</TableCell>
                   <TableCell>{uploadDate && uploadDate.toDateString()}</TableCell>
+
                 </TableRow>
               ))}
             </TableBody>

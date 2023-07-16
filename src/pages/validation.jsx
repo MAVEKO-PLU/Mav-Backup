@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from "@mui/material/Button";
 import DashboardDrawer from './drawer';
+import TextField from '@mui/material/TextField';
 
 function Information() {
   const [supplierId, setSupplierId] = useState('');
@@ -191,7 +192,7 @@ function Information() {
                 </select>
                 <br />
               
-                <select
+                {/* <select
                   className='input-field'
                   id="selectedFormula"
                   name="selectedFormula"
@@ -202,7 +203,9 @@ function Information() {
                   <option value="">Updated Formula</option>
                   <option value="oldPrice * 0.9">10% Discount</option>
                   <option value="oldPrice + 100">Add $100</option>
-                </select>
+                </select> */}
+ <TextField sx={{ width:'365px'}} label='New Formula' id="formula" type="text"/>
+               
                 <Button variant='contained' sx={{ backgroundColor: '#05184C', margin: '10px', height:'42px' }}>Apply Formula</Button>
               </div>
                </div>
