@@ -13,14 +13,16 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/supplier" element={<SupplierList />} />
+        <Route path="/supplier" element={<SupplierList/>} />
         <Route path="/master" element={<MasterList />} />
         <Route path="/customer" element={<CustomerList />} />
         <Route path="/dash" element={<Dashboard />} />
         <Route path="/notification" element={<Notify/>} />
         <Route path="/approval" element={<Approval />} />
         <Route path="/validation" element={<Validation />} />
-       
+         
+
+        
 
         <Route path="/" element={<SignIn />} />
       </Routes>
