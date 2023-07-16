@@ -2356,7 +2356,14 @@
   resolved "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
-"@types/mime@*", "@types/mime@^1":
+
+"@types/mime@*":
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/@types/mime/-/mime-3.0.1.tgz"
+  integrity sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==
+
+"@types/mime@^1":
+
   version "1.3.2"
   resolved "https://registry.npmjs.org/@types/mime/-/mime-1.3.2.tgz"
   integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
@@ -2803,6 +2810,11 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
+adler-32@~1.3.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/adler-32/-/adler-32-1.3.1.tgz#1dbf0b36dda0012189a32b3679061932df1821e2"
+  integrity sha512-ynZ4w/nUUv5rrsR8UUGoe1VC9hZj6V5hU9Qw1HlMDJGEJw5S7TfTErWTjMys6M7vr0YWcPqs3qAr4ss0nDfP+A==
+
 agent-base@6:
   version "6.0.2"
   resolved "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz"
@@ -2927,6 +2939,15 @@ aria-query@5.1.3, aria-query@^5.0.0, aria-query@^5.1.3:
   dependencies:
     deep-equal "^2.0.5"
 
+
+aria-query@^5.0.0, aria-query@^5.1.3:
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/aria-query/-/aria-query-5.3.0.tgz"
+  integrity sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==
+  dependencies:
+    dequal "^2.0.3"
+
+
 array-buffer-byte-length@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/array-buffer-byte-length/-/array-buffer-byte-length-1.0.0.tgz"
@@ -3049,6 +3070,15 @@ axe-core@^4.6.2:
   version "4.7.2"
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.7.2.tgz"
   integrity sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==
+
+axios@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/axios/-/axios-1.4.0.tgz"
+  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 axobject-query@^3.1.1:
   version "3.2.1"
@@ -3381,6 +3411,14 @@ case-sensitive-paths-webpack-plugin@^2.4.0:
   resolved "https://registry.npmjs.org/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.4.0.tgz"
   integrity sha512-roIFONhcxog0JSSWbvVAh3OocukmSgpqOH6YpMkCvav/ySIV3JKg4Dc8vYtQjYi/UxpNE36r/9v+VqTQqgkYmw==
 
+cfb@~1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/cfb/-/cfb-1.2.2.tgz#94e687628c700e5155436dac05f74e08df23bc44"
+  integrity sha512-KfdUZsSOw19/ObEWasvBP/Ac4reZvAGauZhs6S/gqNhXhI7cKwvlH7ulj+dOEYnca4bm4SGo8C1bTAQvnTjgQA==
+  dependencies:
+    adler-32 "~1.3.0"
+    crc-32 "~1.2.0"
+
 chalk@^2.0.0, chalk@^2.4.1:
   version "2.4.2"
   resolved "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz"
@@ -3490,6 +3528,11 @@ coa@^2.0.2:
     "@types/q" "^1.5.1"
     chalk "^2.4.1"
     q "^1.1.2"
+
+codepage@~1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/codepage/-/codepage-1.15.0.tgz#2e00519024b39424ec66eeb3ec07227e692618ab"
+  integrity sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==
 
 collect-v8-coverage@^1.0.0:
   version "1.0.2"
@@ -3677,6 +3720,11 @@ cosmiconfig@^7.0.0:
     parse-json "^5.0.0"
     path-type "^4.0.0"
     yaml "^1.10.0"
+
+crc-32@~1.2.0, crc-32@~1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/crc-32/-/crc-32-1.2.2.tgz#3cad35a934b8bf71f25ca524b6da51fb7eace2ff"
+  integrity sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==
 
 cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
@@ -4978,7 +5026,7 @@ flatted@^3.1.0:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -5018,10 +5066,24 @@ form-data@^3.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
 forwarded@0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/forwarded/-/forwarded-0.2.0.tgz"
   integrity sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==
+
+frac@~1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/frac/-/frac-1.1.2.tgz#3d74f7f6478c88a1b5020306d747dc6313c74d0b"
+  integrity sha512-w/XBfkibaTl3YDqASwfDUqkna4Z2p9cFSr1aHDt0WoMTECnRfBOv2WArlZILlqgWlmdIlALXGpM2AOhEk5W3IA==
 
 fraction.js@^4.2.0:
   version "4.2.0"
@@ -7889,6 +7951,11 @@ proxy-addr@~2.0.7:
     forwarded "0.2.0"
     ipaddr.js "1.9.1"
 
+proxy-from-env@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
+  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
+
 psl@^1.1.33:
   version "1.9.0"
   resolved "https://registry.npmjs.org/psl/-/psl-1.9.0.tgz"
@@ -8004,6 +8071,11 @@ react-error-overlay@^6.0.11:
   version "6.0.11"
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.11.tgz"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
+
+react-icons@^4.10.1:
+  version "4.10.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.10.1.tgz#3f3b5eec1f63c1796f6a26174a1091ca6437a500"
+  integrity sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==
 
 react-is@^16.10.2, react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
@@ -8732,6 +8804,13 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
   integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
+
+ssf@~0.11.2:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/ssf/-/ssf-0.11.2.tgz#0b99698b237548d088fc43cdf2b70c1a7512c06c"
+  integrity sha512-+idbmIXoYET47hH+d7dfm2epdOMUDjqcB4648sTZ+t2JwoyBFL/insLfB/racrDmsKB3diwsDA696pZMieAC5g==
+  dependencies:
+    frac "~1.1.2"
 
 stable@^0.1.8:
   version "0.1.8"
@@ -9679,6 +9758,16 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
+wmf@~1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/wmf/-/wmf-1.0.2.tgz#7d19d621071a08c2bdc6b7e688a9c435298cc2da"
+  integrity sha512-/p9K7bEh0Dj6WbXg4JG0xvLQmIadrner1bi45VMJTfnbVHsc7yIajZyoSoK60/dtVBs12Fm6WkUI5/3WAVsNMw==
+
+word@~0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/word/-/word-0.3.0.tgz#8542157e4f8e849f4a363a288992d47612db9961"
+  integrity sha512-OELeY0Q61OXpdUfTp+oweA/vtLVg5VDOXh+3he3PNzLGG/y0oylSOC1xRVj0+l4vQ3tj/bB1HVHv1ocXkQceFA==
+
 workbox-background-sync@6.6.1:
   version "6.6.1"
   resolved "https://registry.npmjs.org/workbox-background-sync/-/workbox-background-sync-6.6.1.tgz"
@@ -9881,6 +9970,19 @@ ws@^8.13.0:
   version "8.13.0"
   resolved "https://registry.npmjs.org/ws/-/ws-8.13.0.tgz"
   integrity sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==
+
+xlsx@^0.18.5:
+  version "0.18.5"
+  resolved "https://registry.yarnpkg.com/xlsx/-/xlsx-0.18.5.tgz#16711b9113c848076b8a177022799ad356eba7d0"
+  integrity sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==
+  dependencies:
+    adler-32 "~1.3.0"
+    cfb "~1.2.1"
+    codepage "~1.15.0"
+    crc-32 "~1.2.1"
+    ssf "~0.11.2"
+    wmf "~1.0.1"
+    word "~0.3.0"
 
 xml-name-validator@^3.0.0:
   version "3.0.0"

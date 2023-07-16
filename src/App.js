@@ -17,18 +17,24 @@ function App() {
     <Router>
       
       <Routes>
+
+        <Route path="/master" element={<MasterList />} />
+
         <Route path="/supplier" element={<SupplierList />} />
-        <Route path="/master" element={<MyTable/>} />
+        <Route path="/masterUP" element={<MyTable/>} />
+
         <Route path="/customer" element={<CustomerList />} />
         <Route path="/dash" element={<Dashboard />} />
         <Route path="/notification" element={<Notify/>} />
         <Route path="/approval" element={<Approval />} />
         <Route path="/validation" element={<Validation />} />
+
         <Route path="/simpletable" element={<SimpleTable/>} />
         <Route path="/ParentComponent" element={<ParentComponent/>} />
 
 
        
+
 
         <Route path="/" element={<SignIn />} />
       </Routes>
