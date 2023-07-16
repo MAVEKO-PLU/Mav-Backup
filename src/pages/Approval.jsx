@@ -195,7 +195,7 @@ export default function MasterList() {
       {/* <NavBar></NavBar> */}
 
       <DashboardDrawer />
-      <div className="inB" style={{ margin: "45px" }}>
+      <div className="inB" style={{ margin: "65px" }}>
         <h1>Supplier Items</h1>
         <h3>12/08/23</h3>
         <TableContainer component={Paper}>
@@ -203,46 +203,46 @@ export default function MasterList() {
             <TableHead>
               <TableRow>
                 <TableCell
-                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
                   Item Code
                 </TableCell>
                 <TableCell
-                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
                   Item Name
                 </TableCell>
                 <TableCell
-                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
                   Item Description
                 </TableCell>
 
                 <TableCell
-                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
                   Old Price
                 </TableCell>
                 <TableCell
-                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
                   New Price
                 </TableCell>
                 <TableCell
-                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
                   Unit of Measure
                 </TableCell>
                 <TableCell
-                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
                   Status
                 </TableCell>
 
                 <TableCell
-                  sx={{ backgroundColor: "#849dab", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
-                  Action
+                  Actions
                 </TableCell>
               </TableRow>
             </TableHead>

@@ -152,7 +152,7 @@ export default function CustomerList() {
           />
           <IconButton onClick={handleSearch}>
             <SearchIcon sx={{
-              bgcolor: "#849dab",
+              bgcolor: "#04184B",
               borderRadius: "4px",
               padding: "14px",
               color: "#fff"
@@ -164,45 +164,45 @@ export default function CustomerList() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead className='tableheader'> 
               <TableRow>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   Item Code
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   Decor Code
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   Item Name
                 </TableCell>
                 <TableCell
-                  sx={{ backgroundColor: "#849dab ", color: "#fff" }}
+                  sx={{ backgroundColor: "#04184B ", color: "#fff" }}
                 >
                   Item Description
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   Dimensions
                 </TableCell>
-                {/* <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                {/* <TableCell sx={{ backgroundColor: "##04184B ", color: "#fff" }}>
                   Article Group
                 </TableCell> */}
-                {/* <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                {/* <TableCell sx={{ backgroundColor: "##04184B ", color: "#fff" }}>
                   Tax Class
                 </TableCell> */}
-                {/* <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                {/* <TableCell sx={{ backgroundColor: "##04184B ", color: "#fff" }}>
                   Weight
                 </TableCell> */}
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                Unit of Measure
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                  Current Price
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   New Price
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                  Price Valid From 
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab "}}>
+                <TableCell sx={{ backgroundColor: "#04184B "}}>
                 
                 </TableCell>
               </TableRow>

@@ -3,6 +3,7 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
+import Checkbox from "@mui/material/Checkbox";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
@@ -31,44 +32,33 @@ const mockData = [
   {
     item: {
       id: 1,
-      item_code: "ABC001",
-      decor_code: "DEC001",
-      item_name: "Product 1",
-      item_description: "Description of Product 1",
-      image: "product1.jpg",
-      dimensions: "10x10x10",
-      article_group: "Group 1",
-      tax_class: "Tax Class 1",
+      reference_No: "REF001",
+      Supplier_Name: "Supplier 1",
+      Received_date: "2023-07-01",
+      status: "pending",
     },
-    price: 50,
     pricing: {
-      old_purchase_price: 40,
-      new_purchase_price: 45,
+      effective_as_of: "2023-08-01",
     },
   },
   {
     item: {
       id: 2,
-      item_code: "ABC002",
-      decor_code: "DEC002",
-      item_name: "Product 2",
-      item_description: "Description of Product 2",
-      image: "product2.jpg",
-      dimensions: "20x20x20",
-      article_group: "Group 2",
-      tax_class: "Tax Class 2",
+      reference_No: "REF002",
+      Supplier_Name: "Supplier 2",
+      Received_date: "2023-07-02",
+      status: "pending",
     },
-    price: 60,
     pricing: {
-      old_purchase_price: 55,
-      new_purchase_price: 58,
+      effective_as_of: "2023-08-01",
     },
   },
   // Add more items as needed
 ];
 
+
 export default function SupplierList() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(mockData);
   const [state, setState] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -95,31 +85,55 @@ export default function SupplierList() {
 
     fetchData();
   }, []);
-  const handleTick = (row) => {
-    if (row.status === 'pending') {
-     
-      row.status = 'approved';
-  
-  
-      axios.put('/api/items/' + row.id, { status: 'approved' })
-        .then(response => {
-       
-        })
-        .catch(error => {
-         
-        });}
-  };
 
-  const handleReject = (row) => {
-    if (row.status === 'pending') {
-     row.status = 'rejected';
-      axios.put('/api/items/' + row.id, { status: 'rejected' })
+  
+  const handleTick = (row) => {
+    if (row.item.status === 'pending'|| row.item.status === 'Rejected') {
+      const updatedRow = { ...row, item: { ...row.item, status: 'Approved' } };
+  
+      axios
+        .put('/api/items/' + row.item.id, { status: 'Approved' })
         .then(response => {
-        
+          // Handle success response if needed
         })
         .catch(error => {
-      
-        });}
+          // Handle error if needed
+        });
+  
+      setData(prevData => {
+        const updatedData = prevData.map(prevRow => {
+          if (prevRow.item.id === row.item.id) {
+            return updatedRow;
+          }
+          return prevRow;
+        });
+        return updatedData;
+      });
+    }
+  };
+  const handleReject = (row) => {
+    if (row.item.status === 'pending' || row.item.status === 'Approved') {
+      const updatedRow = { ...row, item: { ...row.item, status: 'Rejected' } };
+  
+      axios
+        .put('/api/items/' + row.item.id, { status: 'Rejected' })
+        .then(response => {
+          // Handle success response if needed
+        })
+        .catch(error => {
+          // Handle error if needed
+        });
+  
+      setData(prevData => {
+        const updatedData = prevData.map(prevRow => {
+          if (prevRow.item.id === row.item.id) {
+            return updatedRow;
+          }
+          return prevRow;
+        });
+        return updatedData;
+      });
+    }
   };
   const handleIconClick = (item) => {
     setSelectedItem(item);
@@ -172,47 +186,27 @@ export default function SupplierList() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
                   <PackageIcon sx={{ color: "#fff", paddingTop: "8px", paddingLeft: "8px", }} />
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Item Code
+             
+               <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                Reference No
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Decor Code
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                 Supplier Name
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Item Name
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+               Received Date
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Item Description
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                  Effective as Of
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Image
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                Status
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Dimensions
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Article Group
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Tax Class
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Weight
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Old Item Price
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  New Item Price
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                  Update
-                </TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>
-                 Action
+                <TableCell sx={{ backgroundColor: "#04184B", color: "#fff" }}>
+                 Actions
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -224,17 +218,44 @@ export default function SupplierList() {
                       <PackageIcon />
                     </IconButton>
                   </TableCell>
-                  <TableCell>{row.item.item_code}</TableCell>
-                  <TableCell>{row.item.decor_code}</TableCell>
-                  <TableCell>{row.item.item_name}</TableCell>
-                  <TableCell>{row.item.item_description}</TableCell>
-                  <TableCell>{row.item.image}</TableCell>
-                  <TableCell>{row.item.dimensions}</TableCell>
-                  <TableCell>{row.item.article_group}</TableCell>
-                  <TableCell>{row.item.tax_class}</TableCell>
-                  <TableCell>{row.price}</TableCell>
-                  <TableCell>{row.pricing.old_purchase_price}</TableCell>
-                  <TableCell>{row.pricing.new_purchase_price}</TableCell>
+               
+                  <TableCell>{row.item.reference_No}</TableCell>
+                  <TableCell>{row.item.Supplier_Name}</TableCell>
+                  <TableCell>{row.item.Received_date}</TableCell>
+                  <TableCell>{row.pricing.effective_as_of}</TableCell>
+                  <TableCell>{row.item.status}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      sx={{ color: "green" }}
+                      onClick={() => handleTick(row)}
+                    >
+                      <CheckIcon />
+                    </IconButton>
+                    <IconButton
+                      sx={{ color: "red" }}
+                      onClick={() => handleReject(row)}
+                    >
+                      <RejectIcon />
+                    </IconButton>
+
+                    <Checkbox
+          checked={row.checked}
+          onChange={() =>
+            setData((prevRows) => {
+              const updatedRows = prevRows.map((prevRow) => {
+                if (prevRow.item.id === row.item.id) {
+                  return {
+                    ...prevRow,
+                    checked: !prevRow.checked,
+                  };
+                }
+                return prevRow;
+              });
+              return updatedRows;
+            })
+          }
+        />
+                  {/* </TableCell>
                   <TableCell>
                   <IconButton onClick={() => handleTick(selectedItem)}>
                     <CheckIcon />
@@ -259,12 +280,12 @@ export default function SupplierList() {
                             row.item,
                             e.target.value,
                             row.item.item_code
-                          )
-                        }
+                          ) */}
+                        {/* }
                       >
                         <UpdateIcon />
                       </IconButton>
-                    </div>
+                    </div> */}
                   </TableCell>
                 </TableRow>
               ))}
