@@ -99,10 +99,20 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="dashbody">
-        <h2 className="dashboard">Dashboard</h2>
+      <div className="dashbody" sx={{
+    backgroundColor: (theme) =>
+      theme.palette.mode === "light"
+        ? theme.palette.grey[300]
+        : theme.palette.grey[100],
+    flexGrow: 1,
+    maxWidth: "calc(100% - 240px)", // Subtract the width of the drawer
+    marginLeft: "240px", // Adjust based on the width of the drawer
+    overflow: "auto",
+    marginRight:'0px',
+  }}>
+      
         <ThemeProvider theme={defaultTheme}>
-          <Box sx={{ display: "flex", maxWidth: "100%", marginLeft: "2%", marginRight: "2%" }}>
+          <Box sx={{ display: "flex", maxWidth: "100%", marginLeft: "2%", marginRight: "-10%", }}>
             <CssBaseline />
             <DashboardDrawer/>
             <Box
