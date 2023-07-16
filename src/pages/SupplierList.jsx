@@ -98,7 +98,7 @@ export default function Supplier() {
     setFileData(updatedData);
     setSelectedRows([]);
   };
-  
+
   const handleHeaderCheckboxChange = (event) => {
     if (event.target.checked) {
       const allRows = Array.from({ length: paginatedFileData.length }, (_, index) => index);
@@ -107,9 +107,7 @@ export default function Supplier() {
       setSelectedRows([]);
     }
   };
-  
-  
-  
+
   const renderTablePage = () => (
     <>
       <NavBar />
@@ -129,6 +127,7 @@ export default function Supplier() {
                       backgroundColor: "#063970",
                       color: "#fff",
                       fontWeight: "bold",
+                      width: "40px",
                     }}
                   >
                     <input
@@ -191,55 +190,15 @@ export default function Supplier() {
           />
         )}
         <div className="button-container">
-          <button
-            className="approve-button"
-            style={{
-              display: "inline-block",
-              marginRight: "8px",
-              backgroundColor: "green",
-              color: "white",
-              border: "none",
-              padding: "8px 16px",
-              marginTop: "8px",
-            }}
-          >
-            Approve
-          </button>
-          <button
-            className="reject-button"
-            style={{
-              display: "inline-block",
-              marginRight: "8px",
-              backgroundColor: "red",
-              color: "white",
-              border: "none",
-              padding: "8px 16px",
-              marginTop: "8px",
-            }}
-            onClick={handleRejectClick}
-          >
+          <button className="approve-button">Approve</button>
+          <button className="reject-button" onClick={handleRejectClick}>
             Reject
           </button>
-          <button
-            className="negotiate-button"
-            style={{
-              display: "inline-block",
-              backgroundColor: "blue",
-              color: "white",
-              border: "none",
-              padding: "8px 16px",
-              marginTop: "8px",
-            }}
-          >
-            Negotiate
-          </button>
+          <button className="negotiate-button">Negotiate</button>
         </div>
       </div>
     </>
   );
-  
-  
-  
 
   const renderHomePage = () => (
     <>

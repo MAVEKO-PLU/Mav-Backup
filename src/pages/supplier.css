@@ -1,33 +1,11 @@
-.table-cell {
-    border: 1px solid #000;
-    padding: 8px;
-  }
-  
-  .inB {
+/* supplier.css */
+
+.inB {
     position: relative;
-  }
-  
-  .upload-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  
-  .upload-input {
-    display: none;
-  }
-  
-  .upload-button {
-    background-color: #063970;
-    color: #fff;
-  }
-  
-  .upload-button:hover {
-    background-color: #ff4081;
+    padding: 16px;
   }
   
   .upload-date-container {
-    margin-top: 16px;
     margin-bottom: 16px;
   }
   
@@ -35,32 +13,49 @@
     font-weight: bold;
     margin-bottom: 8px;
   }
-  /* supplier.css */
-
-.approve-button {
-    background-color: rgb(6, 66, 6);
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+  
+  .approve-button {
+    background-color: #153e14;
     color: white;
     padding: 8px 16px;
     border: none;
-    margin-top: 5%;
-    border-radius: 7px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
   }
   
   .reject-button {
-    background-color: rgb(97, 17, 17);
+    background-color: #490b0b;
     color: white;
     padding: 8px 16px;
     border: none;
-    margin-top: 5%;
-    border-radius: 7px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
   }
   
   .negotiate-button {
-    background-color: rgb(21, 21, 118);
+    background-color: #0b2170;
     color: white;
     padding: 8px 16px;
     border: none;
-    border-radius: 7px;
-    margin-top: 5%;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .table-cell {
+    border: 1px solid #000;
+    padding: 8px;
+    vertical-align: middle;
+  }
+  
+  .first-row {
+    background-color: #f0f0f0;
   }
   
