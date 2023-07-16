@@ -1,0 +1,81 @@
+.inB {
+    position: relative;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    color: #063970;
+    margin-bottom: 20px;
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .upload-date-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .upload-date {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .upload-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .upload-input {
+    display: none;
+  }
+  
+  .upload-button {
+    background-color: #063970;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .upload-button:hover {
+    background-color: #ff4081;
+  }
+  
+  .table-cell {
+    border: 1px solid #000;
+    padding: 8px;
+  }
+  
+  .first-row {
+    font-weight: bold;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+  
+  .approve-button,
+  .reject-button,
+  .negotiate-button {
+    background-color: #063970;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    margin-left: 8px;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  
+  .approve-button:hover,
+  .reject-button:hover,
+  .negotiate-button:hover {
+    background-color: #ff4081;
+  }

@@ -1,8 +1,8 @@
 #root{
-    max-width: 300%;
+    max-width:100%;
   
-   background-color: rgb(255, 255, 255);
-   max-height: 500%;
+   background-color: rgb(224, 224, 224);
+  
       
   }
 .appbar{
@@ -11,13 +11,15 @@
 .dashboard{
   text-align: left;
   margin-left: 6%;
-  margin-top: 5%;
+  margin-top: 1%;
+  max-width:100%;
+  
  
 }
 .customer_header{
   text-align: left;
   margin-left: 6%;
-  margin-top: 5%;
+  margin-top: 20%;
   font-weight: 1000;
   font-size: xx-large;
 }
