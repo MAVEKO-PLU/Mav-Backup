@@ -27,6 +27,46 @@ import CheckIcon from "@mui/icons-material/Check";
 import RejectIcon from "@mui/icons-material/HighlightOff";
 import axios from "axios";
 
+const mockData = [
+  {
+    item: {
+      id: 1,
+      item_code: "ABC001",
+      decor_code: "DEC001",
+      item_name: "Product 1",
+      item_description: "Description of Product 1",
+      image: "product1.jpg",
+      dimensions: "10x10x10",
+      article_group: "Group 1",
+      tax_class: "Tax Class 1",
+    },
+    price: 50,
+    pricing: {
+      old_purchase_price: 40,
+      new_purchase_price: 45,
+    },
+  },
+  {
+    item: {
+      id: 2,
+      item_code: "ABC002",
+      decor_code: "DEC002",
+      item_name: "Product 2",
+      item_description: "Description of Product 2",
+      image: "product2.jpg",
+      dimensions: "20x20x20",
+      article_group: "Group 2",
+      tax_class: "Tax Class 2",
+    },
+    price: 60,
+    pricing: {
+      old_purchase_price: 55,
+      new_purchase_price: 58,
+    },
+  },
+  // Add more items as needed
+];
+
 export default function SupplierList() {
   const [data, setData] = useState([]);
   const [state, setState] = useState(0);

@@ -20,8 +20,55 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import DashboardDrawer from "./drawer"
+import FlagIcon from '@mui/icons-material/Flag';
 
 
+const mockData = [
+  {
+    id: 1,
+    item: {
+      item_code: "ABC123",
+      item_name: "Item 1",
+      item_description: "Item 1 description",
+      dimensions: "10x10",
+      article_group: "Group A",
+      weight: 0.5,
+      unit_measure: "kg",
+      currency: "USD",
+      decor_code:'Am342',
+      valid_from_new_purchase: "2023-07-01",
+    },
+    pricing: {
+      old_retail_price: 10.99,
+      new_retail_price: 12.99,
+      valid_from_old_purchase: "2023-07-01",
+      valid_from_new_purchase: "2023-07-01"
+    }
+  },
+  {
+    id: 2,
+    item: {
+      item_code: "DEF456",
+      item_name: "Item 2",
+      item_description: "Item 2 description",
+      dimensions: "20x20",
+      article_group: "Group B",
+      weight: 1.0,
+      unit_measure: "kg",
+      currency: "USD",
+      decor_code:'Am7842',
+     
+      
+    },
+    pricing: {
+      old_retail_price: 8.99,
+      new_retail_price: 8.99,
+      valid_from_old_purchase: "2023-07-01",
+      valid_from_new_purchase: "2023-08-01"
+    }
+  }
+
+];
 export default function CustomerList() {
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -31,12 +78,14 @@ export default function CustomerList() {
   const rowsPerPage = 10;
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchCL();
-      setData(response);
-    };
+  //   const fetchData = async () => {
+  //     const response = await fetchCL();
+  //     setData(response);
+  //   };
 
-    fetchData();
+  //   fetchData();
+  // }, []);
+  setData(mockData);
   }, []);
 
   const handleRowClick = (item) => {
@@ -153,6 +202,9 @@ export default function CustomerList() {
                 <TableCell sx={{ backgroundColor: "#849dab ", color: "#fff" }}>
                  Price Valid From 
                 </TableCell>
+                <TableCell sx={{ backgroundColor: "#849dab "}}>
+                
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -169,10 +221,16 @@ export default function CustomerList() {
                   {/* <TableCell>{row.item.article_group}</TableCell>
                   <TableCell>{row.item.tax_class}</TableCell>
                   <TableCell>{row.item.weight}</TableCell> */}
-                  <TableCell>{row.pricing.unit}</TableCell>
+                  <TableCell>{row.item.unit_measure}</TableCell>
                   <TableCell>{row.pricing.old_retail_price}</TableCell>
                   <TableCell>{row.pricing.new_retail_price}</TableCell>
-                  <TableCell>{row.pricing.new_retail_price_valid_from}</TableCell>
+                  <TableCell>{row.pricing.valid_from_new_purchase}</TableCell>
+                  {row.pricing.old_retail_price !== row.pricing.new_retail_price  && (
+                    <TableCell>
+                      {/* <span style={{ color: "red" }}>Flag</span> */}
+                      <FlagIcon  style={{ color: "red" }} />
+                    </TableCell> )}
+
 
                 </TableRow>
               ))}
