@@ -61,12 +61,16 @@ const ParentComponent = () => {
   useEffect(() => {
     if (data.length > 0) {
       // Filter data for table 1
-      const filteredTable1Data = data.filter((row) => row['Suppliers-ID'] && row['Maveko-ID']);
+      const filteredTable1Data = removeDuplicates(
+        data,
+        ['Item-Discription', 'Maveko-ID']
+      );
       setTable1Data(filteredTable1Data);
 
       // Filter data for table 2
-      const filteredTable2Data = data.filter(
-        (row) => row['Maveko ID'] && row['customer-ID'] && row['Customer-Name']
+      const filteredTable2Data = removeDuplicates(
+        data,
+        ['Item-Discription', 'Maveko-ID', 'customer-ID', 'Customer-Name']
       );
       setTable2Data(filteredTable2Data);
 
@@ -74,13 +78,30 @@ const ParentComponent = () => {
     }
   }, [data]);
 
+  const removeDuplicates = (array, keys) => {
+    const seenKeys = new Set();
+    return array.filter((row) => {
+      const key = keys.map((key) => row[key]).join('|');
+      if (!seenKeys.has(key)) {
+        seenKeys.add(key);
+        return true;
+      }
+      return false;
+    });
+  };
+
   const mergeData = () => {
     if (table1Data.length > 0 && table2Data.length > 0) {
       const merged = table1Data.map((row1) => {
-        const matchingRow = table2Data.find((row2) => row1['Maveko-ID'] === row2['Maveko ID']);
+        const matchingRows = table2Data.filter(
+          (row2) => row1['Maveko-ID'] === row2['Maveko-ID']
+        );
+
+        const customerNames = matchingRows.map((row) => row['Customer-Name']);
+
         return {
           ...row1,
-          ...(matchingRow || {}),
+          'Customer-Name': customerNames.join(', '),
         };
       });
       setMergedData(merged);
