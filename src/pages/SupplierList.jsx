@@ -12,53 +12,6 @@ import * as XLSX from "xlsx";
 import "./supplier.css";
 import Pagination from "@mui/material/Pagination";
 
-function FileTable({ files, handleFileClick, uploadDate }) {
-  return (
-    <TableContainer component={Paper} sx={{ maxWidth: 1100 }}>
-      <Table sx={{ minWidth: 650 }} aria-label="file table">
-        <TableHead>
-          <TableRow>
-            <TableCell
-              sx={{
-                backgroundColor: "#063970",
-                color: "#fff",
-                fontWeight: "bold",
-                border: "1px solid rgba(0, 0, 0, 0.5)",
-                padding: "8px",
-              }}
-            >
-              File Name
-            </TableCell>
-            <TableCell
-              sx={{
-                backgroundColor: "#063970",
-                color: "#fff",
-                fontWeight: "bold",
-                border: "1px solid rgba(0, 0, 0, 0.5)",
-                padding: "8px",
-              }}
-            >
-              Upload Date
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {files.map((file, index) => (
-            <TableRow
-              key={index}
-              onClick={() => handleFileClick(file)}
-              style={{ cursor: "pointer" }}
-            >
-              <TableCell>{file.name}</TableCell>
-              <TableCell>{uploadDate && uploadDate.toDateString()}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-}
-
 export default function Supplier() {
   const [files, setFiles] = useState([]);
   const [currentFile, setCurrentFile] = useState(null);
@@ -67,6 +20,7 @@ export default function Supplier() {
   const [rowsPerPage] = useState(10);
   const [maxColumns] = useState(5); // Maximum number of columns to display
   const [uploadDate, setUploadDate] = useState(null); // Upload date state
+  const [selectedRows, setSelectedRows] = useState([]);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -131,6 +85,31 @@ export default function Supplier() {
   const endIndex = startIndex + rowsPerPage;
   const paginatedFileData = fileData.slice(startIndex, endIndex);
 
+  const handleRowSelect = (rowIndex) => {
+    if (selectedRows.includes(rowIndex)) {
+      setSelectedRows(selectedRows.filter((row) => row !== rowIndex));
+    } else {
+      setSelectedRows([...selectedRows, rowIndex]);
+    }
+  };
+
+  const handleRejectClick = () => {
+    const updatedData = fileData.filter((_, index) => index === 0 || !selectedRows.includes(index));
+    setFileData(updatedData);
+    setSelectedRows([]);
+  };
+  
+  const handleHeaderCheckboxChange = (event) => {
+    if (event.target.checked) {
+      const allRows = Array.from({ length: paginatedFileData.length }, (_, index) => index);
+      setSelectedRows(allRows);
+    } else {
+      setSelectedRows([]);
+    }
+  };
+  
+  
+  
   const renderTablePage = () => (
     <>
       <NavBar />
@@ -144,11 +123,25 @@ export default function Supplier() {
             <Table sx={{ minWidth: 650 }} aria-label="excel table">
               <TableHead>
                 <TableRow>
+                  <TableCell
+                    className="table-cell"
+                    style={{
+                      backgroundColor: "#063970",
+                      color: "#fff",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedRows.length === paginatedFileData.length}
+                      onChange={handleHeaderCheckboxChange}
+                    />
+                  </TableCell>
                   {fileData[0].map((header, index) => (
                     <TableCell
                       key={index}
                       className="table-cell"
-                      sx={{
+                      style={{
                         fontWeight: "bold",
                         backgroundColor: "#063970",
                         color: "#fff",
@@ -164,11 +157,18 @@ export default function Supplier() {
                   .fill()
                   .map((_, rowIndex) => (
                     <TableRow key={rowIndex}>
+                      <TableCell className="table-cell">
+                        <input
+                          type="checkbox"
+                          checked={selectedRows.includes(rowIndex)}
+                          onChange={() => handleRowSelect(rowIndex)}
+                        />
+                      </TableCell>
                       {fileData[0].map((_, colIndex) => (
                         <TableCell
                           key={colIndex}
-                          className="table-cell"
-                          sx={{
+                          className={`table-cell ${rowIndex === 0 ? "first-row" : ""}`}
+                          style={{
                             border: "1px solid #000",
                             padding: "8px",
                           }}
@@ -187,12 +187,59 @@ export default function Supplier() {
             count={Math.ceil(fileData.length / rowsPerPage)}
             page={page}
             onChange={handleChangePage}
-            sx={{ mt: 3, display: "flex", justifyContent: "center" }}
+            style={{ marginTop: 16, display: "flex", justifyContent: "center" }}
           />
         )}
+        <div className="button-container">
+          <button
+            className="approve-button"
+            style={{
+              display: "inline-block",
+              marginRight: "8px",
+              backgroundColor: "green",
+              color: "white",
+              border: "none",
+              padding: "8px 16px",
+              marginTop: "8px",
+            }}
+          >
+            Approve
+          </button>
+          <button
+            className="reject-button"
+            style={{
+              display: "inline-block",
+              marginRight: "8px",
+              backgroundColor: "red",
+              color: "white",
+              border: "none",
+              padding: "8px 16px",
+              marginTop: "8px",
+            }}
+            onClick={handleRejectClick}
+          >
+            Reject
+          </button>
+          <button
+            className="negotiate-button"
+            style={{
+              display: "inline-block",
+              backgroundColor: "blue",
+              color: "white",
+              border: "none",
+              padding: "8px 16px",
+              marginTop: "8px",
+            }}
+          >
+            Negotiate
+          </button>
+        </div>
       </div>
     </>
   );
+  
+  
+  
 
   const renderHomePage = () => (
     <>
@@ -214,7 +261,48 @@ export default function Supplier() {
             </Button>
           </label>
         </div>
-        <FileTable files={files} handleFileClick={handleFileClick} uploadDate={uploadDate} />
+        <TableContainer component={Paper} sx={{ maxWidth: 1100 }}>
+          <Table sx={{ minWidth: 650 }} aria-label="file table">
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  sx={{
+                    backgroundColor: "#063970",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    border: "1px solid rgba(0, 0, 0, 0.5)",
+                    padding: "8px",
+                  }}
+                >
+                  File Name
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: "#063970",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    border: "1px solid rgba(0, 0, 0, 0.5)",
+                    padding: "8px",
+                  }}
+                >
+                  Upload Date
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {files.map((file, index) => (
+                <TableRow
+                  key={index}
+                  onClick={() => handleFileClick(file)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <TableCell>{file.name}</TableCell>
+                  <TableCell>{uploadDate && uploadDate.toDateString()}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </>
   );

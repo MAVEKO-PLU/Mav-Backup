@@ -35,4 +35,32 @@
     font-weight: bold;
     margin-bottom: 8px;
   }
+  /* supplier.css */
+
+.approve-button {
+    background-color: rgb(6, 66, 6);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    margin-top: 5%;
+    border-radius: 7px;
+  }
+  
+  .reject-button {
+    background-color: rgb(97, 17, 17);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    margin-top: 5%;
+    border-radius: 7px;
+  }
+  
+  .negotiate-button {
+    background-color: rgb(21, 21, 118);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 7px;
+    margin-top: 5%;
+  }
   
