@@ -27,13 +27,15 @@ const MergedTable = ({ data }) => (
       </TableHead>
       <TableBody>
         {data.map((row) => (
-          <TableRow key={row.id}>
-            <TableCell>{row['Item-Discription']}</TableCell>
-            <TableCell>{row['Suppliers-ID']}</TableCell>
-            <TableCell>{row['Maveko-ID']}</TableCell>
-            <TableCell>{row['customer-ID']}</TableCell>
-            <TableCell>{row['Customer-Name']}</TableCell>
-          </TableRow>
+          row['Customer-Name'].map((customer, index) => (
+            <TableRow key={`${row.id}_${index}`}>
+              <TableCell>{row['Item-Discription']}</TableCell>
+              <TableCell>{row['Suppliers-ID']}</TableCell>
+              <TableCell>{row['Maveko-ID']}</TableCell>
+              <TableCell>{customer['Customer-ID']}</TableCell>
+              <TableCell>{customer['Customer-Name']}</TableCell>
+            </TableRow>
+          ))
         ))}
       </TableBody>
     </Table>
@@ -97,11 +99,14 @@ const ParentComponent = () => {
           (row2) => row1['Maveko-ID'] === row2['Maveko-ID']
         );
 
-        const customerNames = matchingRows.map((row) => row['Customer-Name']);
+        const customerNames = matchingRows.map((row) => ({
+          'Customer-ID': row['customer-ID'],
+          'Customer-Name': row['Customer-Name'],
+        }));
 
         return {
           ...row1,
-          'Customer-Name': customerNames.join(', '),
+          'Customer-Name': customerNames,
         };
       });
       setMergedData(merged);
