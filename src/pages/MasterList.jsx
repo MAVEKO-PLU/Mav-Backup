@@ -24,6 +24,12 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 
+const today = new Date();
+const now = new Date(today.getTime() - (1 * 24 * 60 * 60 * 1000));
+const threeDaysFromNow = new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000));
+
+
+    
 const mockData = [
   {
     id: 1,
@@ -37,13 +43,13 @@ const mockData = [
       unit_measure: "kg",
       currency: "USD",
       decor_code:'Am342',
-      valid_from_new_purchase: "2023-07-01",
+      valid_from_new_purchase: "2023-07-20",
     },
     pricing: {
       old_purchase_price: 10.99,
       new_purchase_price: 12.99,
       valid_from_old_purchase: "2023-07-01",
-      valid_from_new_purchase: "2023-08-01"
+      valid_from_new_purchase: "2023-07-18"
     }
   },
   {
@@ -58,14 +64,14 @@ const mockData = [
       unit_measure: "kg",
       currency: "USD",
       decor_code:'Am7842',
-      valid_from_new_purchase: "2023-08-01",
+      valid_from_new_purchase: "2023-07-02",
       
     },
     pricing: {
       old_purchase_price: 8.99,
-      new_purchase_price: 8.99,
+      new_purchase_price: 3.99,
       valid_from_old_purchase: "2023-07-01",
-      valid_from_new_purchase: "2023-08-01"
+      valid_from_new_purchase: "2023-07-16"
     }
   }
 
@@ -184,7 +190,7 @@ export default function MasterList() {
                   <TableCell>{row.pricing.old_purchase_price}</TableCell>
                   <TableCell>{row.pricing.new_purchase_price}</TableCell>
                   <TableCell>{row.item.valid_from_new_purchase}</TableCell>
-                  {row.pricing.old_purchase_price !== row.pricing.new_purchase_price  && (
+                  { new Date(row.item.valid_from_new_purchase) >= now && new Date(row.item.valid_from_new_purchase) <= threeDaysFromNow &&(
                     <TableCell>
                       {/* <span style={{ color: "red" }}>Flag</span> */}
                       <FlagIcon  style={{ color: "red" }} />
