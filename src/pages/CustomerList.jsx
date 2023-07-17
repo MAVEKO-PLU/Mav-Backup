@@ -23,52 +23,6 @@ import DashboardDrawer from "./drawer"
 import FlagIcon from '@mui/icons-material/Flag';
 
 
-const mockData = [
-  {
-    id: 1,
-    item: {
-      item_code: "ABC123",
-      item_name: "Item 1",
-      item_description: "Item 1 description",
-      dimensions: "10x10",
-      article_group: "Group A",
-      weight: 0.5,
-      unit_measure: "kg",
-      currency: "USD",
-      decor_code:'Am342',
-      valid_from_new_purchase: "2023-07-01",
-    },
-    pricing: {
-      old_retail_price: 10.99,
-      new_retail_price: 12.99,
-      valid_from_old_purchase: "2023-07-01",
-      valid_from_new_purchase: "2023-07-01"
-    }
-  },
-  {
-    id: 2,
-    item: {
-      item_code: "DEF456",
-      item_name: "Item 2",
-      item_description: "Item 2 description",
-      dimensions: "20x20",
-      article_group: "Group B",
-      weight: 1.0,
-      unit_measure: "kg",
-      currency: "USD",
-      decor_code:'Am7842',
-     
-      
-    },
-    pricing: {
-      old_retail_price: 8.99,
-      new_retail_price: 8.99,
-      valid_from_old_purchase: "2023-07-01",
-      valid_from_new_purchase: "2023-08-01"
-    }
-  }
-
-];
 export default function CustomerList() {
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -78,14 +32,12 @@ export default function CustomerList() {
   const rowsPerPage = 10;
 
   useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetchCL();
-  //     setData(response);
-  //   };
+    const fetchData = async () => {
+      const response = await fetchCL();
+      setData(response);
+    };
 
-  //   fetchData();
-  // }, []);
-  setData(mockData);
+    fetchData();
   }, []);
 
   const handleRowClick = (item) => {
@@ -108,14 +60,14 @@ export default function CustomerList() {
       setTimeout(() => {
         const filteredData = newData.filter((row) =>
           (
-            String(row.item.item_code).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item.decor_code).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item.item_name).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item.item_description).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item.dimensions).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item.article_group).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item.tax_class).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item.weight).toLowerCase().includes(searchQuery.toLowerCase()) ||
+            String(row.item_code).toLowerCase().includes(searchQuery.toLowerCase()) ||
+            String(row.decor_code).toLowerCase().includes(searchQuery.toLowerCase()) ||
+            String(row.item_name).toLowerCase().includes(searchQuery.toLowerCase()) ||
+            String(row.item_description).toLowerCase().includes(searchQuery.toLowerCase()) ||
+            String(row.dimensions).toLowerCase().includes(searchQuery.toLowerCase()) ||
+            String(row.article_group).toLowerCase().includes(searchQuery.toLowerCase()) ||
+            String(row.tax_class).toLowerCase().includes(searchQuery.toLowerCase()) ||
+            String(row.weight).toLowerCase().includes(searchQuery.toLowerCase()) ||
             String(row.pricing.old_retail_price).toLowerCase().includes(searchQuery.toLowerCase()) ||
             String(row.pricing.new_retail_price).toLowerCase().includes(searchQuery.toLowerCase())
           )
@@ -210,22 +162,22 @@ export default function CustomerList() {
             <TableBody>
               {paginatedRows.map((row) => (
                 <TableRow
-                  key={row.item.id}
+                  key={row.id}
                   onClick={() => handleRowClick(row)}
                 >
-                  <TableCell>{row.item.item_code}</TableCell>
-                  <TableCell>{row.item.decor_code}</TableCell>
-                  <TableCell>{row.item.item_name}</TableCell>
-                  <TableCell>{row.item.item_description}</TableCell>
-                  <TableCell>{row.item.dimensions}</TableCell>
+                  <TableCell>{row.item_code}</TableCell>
+                  <TableCell>{row.decor_code}</TableCell>
+                  <TableCell>{row.item_name}</TableCell>
+                  <TableCell>{row.item_description}</TableCell>
+                  <TableCell>{row.dimension.length + "x" + row.dimension.width + "x" + row.dimension.height}</TableCell>
                   {/* <TableCell>{row.item.article_group}</TableCell>
                   <TableCell>{row.item.tax_class}</TableCell>
                   <TableCell>{row.item.weight}</TableCell> */}
-                  <TableCell>{row.item.unit_measure}</TableCell>
-                  <TableCell>{row.pricing.old_retail_price}</TableCell>
-                  <TableCell>{row.pricing.new_retail_price}</TableCell>
-                  <TableCell>{row.pricing.valid_from_new_purchase}</TableCell>
-                  {row.pricing.old_retail_price !== row.pricing.new_retail_price  && (
+                  <TableCell>{row.base_unit.unit}</TableCell>
+                  <TableCell>{row.customer_item_pricing.pricing.old_retail_price}</TableCell>
+                  <TableCell>{row.customer_item_pricing.pricing.new_retail_price}</TableCell>
+                  <TableCell>{row.customer_item_pricing.pricing.valid_from_new_purchase}</TableCell>
+                  {row.customer_item_pricing.pricing.old_retail_price !== row.customer_item_pricing.pricing.new_retail_price  && (
                     <TableCell>
                       {/* <span style={{ color: "red" }}>Flag</span> */}
                       <FlagIcon  style={{ color: "red" }} />

@@ -22,7 +22,7 @@ export const login = async (email, password) => {
 };
 
 export const fetchSL = async () => {
-  const response = await fetch(`${api_link}/supplier_item_pricings`, {
+  const response = await fetch(`${api_link}/items`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export const fetchML = async () => {
 };
 
 export const fetchCL = async () => {
-  const response = await fetch(`${api_link}/customer_item_pricings`, {
+  const response = await fetch(`${api_link}/items`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -67,8 +67,8 @@ export const fetchCL = async () => {
 
   const res = await response.json();
 
-  if (res.Success) {
-    console.log(res.data[0].item);
+  if (res.success) {
+    console.log(res);
     return res.data;
   } else {
     return res.error;

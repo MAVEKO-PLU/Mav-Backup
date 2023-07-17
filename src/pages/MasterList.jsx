@@ -171,16 +171,16 @@ export default function MasterList() {
                   onClick={() => handleRowClick(row)}
                 >
                   
-                  <TableCell>{row.item.item_code}</TableCell>
-                  <TableCell>{row.item.decor_code}</TableCell>
-                  <TableCell>{row.item.item_name}</TableCell>
-                  <TableCell>{row.item.item_description}</TableCell>
-                  <TableCell>{row.item.dimensions}</TableCell>
-                  <TableCell>{row.item.article_group}</TableCell>
+                  <TableCell>{row.item_code}</TableCell>
+                  <TableCell>{row.decor_code}</TableCell>
+                  <TableCell>{row.item_name}</TableCell>
+                  <TableCell>{row.item_description}</TableCell>
+                  <TableCell>{row.dimensions}</TableCell>
+                  <TableCell>{row.article_group}</TableCell>
 
-                  <TableCell>{row.item.weight}</TableCell>
-                  <TableCell>{row.item.unit_measure}</TableCell>
-                  <TableCell>{row.item.currency}</TableCell>
+                  <TableCell>{row.weight}</TableCell>
+                  <TableCell>{row.unit_measure}</TableCell>
+                  <TableCell>{row.currency}</TableCell>
                   <TableCell>{row.pricing.old_purchase_price}</TableCell>
                   <TableCell>{row.pricing.new_purchase_price}</TableCell>
                   <TableCell>{row.item.valid_from_new_purchase}</TableCell>

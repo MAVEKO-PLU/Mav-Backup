@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -15,13 +15,75 @@ import DashboardDrawer from "./drawer.jsx";
 
 export default function Supplier() {
   const [files, setFiles] = useState([]);
+  const [states, setStates] = useState(1);
   const [currentFile, setCurrentFile] = useState(null);
   const [fileData, setFileData] = useState([]);
+  const [fileData1, setFileData1] = useState([]);
+  const [fileDataHead, setFileDataHead] = useState();
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(10);
   const [maxColumns] = useState(5); // Maximum number of columns to display
   const [uploadDate, setUploadDate] = useState(null); // Upload date state
   const [selectedRows, setSelectedRows] = useState([]);
+
+  const fetchDocs = async () => {
+    await fetch("http://localhost:3000/supplier_documents")
+      .then((res) => res.json())
+      .then((data) => {
+        setFiles(data.data);
+      });
+    console.log(fileData);
+  };
+
+  const fetchDoc = async (id) => {
+    await fetch(`http://localhost:3000/supplier_documents/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFileData(data.data);
+      });
+    console.log(fileData);
+  };
+
+  const SaveDocument = async (file) => {
+    const supplier_res = await fetch("http://localhost:3000/suppliers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        payload: {
+          name: "Main Supplier 1",
+        },
+      }),
+    });
+    const sup = await supplier_res.json();
+
+    if (sup.success) {
+      const randomNum = Math.floor(Math.random() * 10000);
+      const sup_doc_res = await fetch(
+        "http://localhost:3000/supplier_documents",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            payload: {
+              reference_no: `REF-${randomNum}`,
+              supplier_id: sup.data.id,
+            },
+          }),
+        }
+      );
+
+      const sup_doc = await sup_doc_res.json();
+
+      if (sup_doc.success) {
+        setStates(states+1)
+        await handleFileClick2(file, sup_doc);
+      }
+    }
+  };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -51,12 +113,46 @@ export default function Supplier() {
     reader.readAsBinaryString(file);
   };
 
-  const handleFileClick = (file) => {
-    setCurrentFile(file);
+  const handleFileClick = async (file) => {
+    if (file.name) {
+      setCurrentFile(file);
 
+      // Read the file data
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const binaryString = event.target.result;
+        const workbook = XLSX.read(binaryString, { type: "binary" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+        // Specify the desired columns to display
+        const columnsToDisplay = [1, 3, 6, 12, 10, 11, 12, 13]; // Example: Displaying columns 0, 3, 6, and 7
+        const limitedData = data.map((row) =>
+          columnsToDisplay.map((colIndex) => row[colIndex])
+        );
+
+        // Set the file data
+        setFileDataHead(limitedData[0]);
+        setFileData(limitedData.splice(1));
+      };
+      reader.onerror = (event) => {
+        console.error("Error reading file:", event.target.error);
+      };
+      reader.readAsBinaryString(file);
+    } else {
+      await setCurrentFile(file);
+      await fetchDoc(file.id);
+      setStates(states + 1);
+    }
+  };
+
+  const handleFileClick2 = async (file, sup_doc) => {
+    // setCurrentFile(file);
+    var dataFile = [];
     // Read the file data
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       const binaryString = event.target.result;
       const workbook = XLSX.read(binaryString, { type: "binary" });
       const sheetName = workbook.SheetNames[0];
@@ -64,14 +160,55 @@ export default function Supplier() {
       const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
       // Specify the desired columns to display
-      const columnsToDisplay = [0, 3, 6, 7]; // Example: Displaying columns 0, 3, 6, and 7
+      const columnsToDisplay = [1, 3, 6, 12, 10, 11, 13]; // Example: Displaying columns 0, 3, 6, and 7
       const limitedData = data.map((row) =>
         columnsToDisplay.map((colIndex) => row[colIndex])
       );
-
-      // Set the file data
-      setFileData(limitedData);
+      dataFile = limitedData.splice(1)
+      await setFileData1(limitedData.splice(1));
+      await setStates(states + 1);
     };
+
+    setTimeout(async () => {
+      for (const data of dataFile) {
+        try {
+          const response = await fetch(
+            "http://localhost:3000/supplier_item_requests",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                payload: {
+                  item_code: data[0],
+                  item_description: data[1],
+                  dimensions: data[2],
+                  price_per_pc: data[3],
+                  base_unit: data[4],
+                  target_unit: data[5],
+                  currency: data[6].toString(),
+                  supplier_document_id: sup_doc.data.id,
+                },
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to create supplier document");
+          }
+
+          const result = await response.json();
+
+          // Process the result if needed
+
+          console.log("Supplier document created:", result);
+        } catch (error) {
+          console.error("Error creating supplier document:", error);
+          // Handle the error
+        }
+      }
+    }, 300);
     reader.onerror = (event) => {
       console.error("Error reading file:", event.target.error);
     };
@@ -95,7 +232,9 @@ export default function Supplier() {
   };
 
   const handleRejectedStatus = () => {
-    const updatedData = fileData.filter((_, index) => index === 0 || !selectedRows.includes(index));
+    const updatedData = fileData.filter(
+      (_, index) => index === 0 || !selectedRows.includes(index)
+    );
     setFileData(updatedData);
     setSelectedRows([]);
   };
@@ -121,12 +260,19 @@ export default function Supplier() {
 
   const handleHeaderCheckboxChange = (event) => {
     if (event.target.checked) {
-      const allRows = Array.from({ length: paginatedFileData.length }, (_, index) => index);
+      const allRows = Array.from(
+        { length: paginatedFileData.length },
+        (_, index) => index
+      );
       setSelectedRows(allRows);
     } else {
       setSelectedRows([]);
     }
   };
+
+  useEffect(() => {
+    fetchDocs();
+  }, []);
 
   const renderTablePage = () => (
     <>
@@ -136,86 +282,182 @@ export default function Supplier() {
         <div className="header-container">
           <h1>SUPPLIER PRICE LIST</h1>
           <div className="upload-date-container">
-            <p className="upload-date">Upload Date: {uploadDate && uploadDate.toDateString()}</p>
+            <p className="upload-date">
+              Upload Date:{" "}
+              {uploadDate && uploadDate.toDateString()
+                ? uploadDate && uploadDate.toDateString()
+                : currentFile.created_at}
+            </p>
           </div>
         </div>
         <div className="table-container">
-          {currentFile && fileData && fileData.length > 0 && (
-            <TableContainer component={Paper} sx={{ marginTop: 1 }}>
-              <Table sx={{ minWidth: 650 }} aria-label="excel table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell
-                      className="table-cell"
-                      style={{
-                        backgroundColor: "#04184B",
-                        color: "#fff",
-                        fontWeight: "bold",
-                        width: "40px",
-                      }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedRows.length === paginatedFileData.length}
-                        onChange={handleHeaderCheckboxChange}
-                      />
-                    </TableCell>
-                    {fileData[0].map((header, index) => (
+          {currentFile &&
+            fileData &&
+            fileData.length > 0 &&
+            (currentFile.name ? (
+              <TableContainer component={Paper} sx={{ marginTop: 1 }}>
+                <Table sx={{ minWidth: 650 }} aria-label="excel table">
+                  <TableHead>
+                    <TableRow>
                       <TableCell
-                        key={index}
                         className="table-cell"
                         style={{
-                          fontWeight: "bold",
                           backgroundColor: "#04184B",
                           color: "#fff",
+                          fontWeight: "bold",
+                          width: "40px",
                         }}
                       >
-                        {header}
+                        <input
+                          type="checkbox"
+                          checked={
+                            selectedRows.length === paginatedFileData.length
+                          }
+                          onChange={handleHeaderCheckboxChange}
+                        />
                       </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {Array(rowsPerPage)
-                    .fill()
-                    .map((_, rowIndex) => (
-                      <TableRow key={rowIndex}>
-                        <TableCell className="table-cell">
-                          <input
-                            type="checkbox"
-                            checked={selectedRows.includes(rowIndex)}
-                            onChange={() => handleRowSelect(rowIndex)}
-                          />
+                      {fileDataHead.map((header, index) => (
+                        <TableCell
+                          key={index}
+                          className="table-cell"
+                          style={{
+                            fontWeight: "bold",
+                            backgroundColor: "#04184B",
+                            color: "#fff",
+                          }}
+                        >
+                          {header}
                         </TableCell>
-                        {fileData[0].map((_, colIndex) => (
-                          <TableCell
-                            key={colIndex}
-                            className={`table-cell ${rowIndex === 0 ? "first-row" : ""}`}
-                            style={{
-                              border: "1px solid #000",
-                              padding: "8px",
-                            }}
-                          >
-                            {paginatedFileData[rowIndex]?.[colIndex]}
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {Array(rowsPerPage)
+                      .fill()
+                      .map((_, rowIndex) => (
+                        <TableRow key={rowIndex}>
+                          <TableCell className="table-cell">
+                            <input
+                              type="checkbox"
+                              checked={selectedRows.includes(rowIndex)}
+                              onChange={() => handleRowSelect(rowIndex)}
+                            />
                           </TableCell>
-                          
-                        )
-                      
-                         
-                        )}
-                        
+                          {fileData[0].map((_, colIndex) => (
+                            <TableCell
+                              key={colIndex}
+                              className={`table-cell ${
+                                rowIndex === 0 ? "first-row" : ""
+                              }`}
+                              style={{
+                                border: "1px solid #000",
+                                padding: "8px",
+                              }}
+                            >
+                              {paginatedFileData[rowIndex]?.[colIndex]}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          backgroundColor: "#04184B",
+                          color: "#fff",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Item Code
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          backgroundColor: "#04184B",
+                          color: "#fff",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Item Description
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          backgroundColor: "#04184B",
+                          color: "#fff",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Dimensions
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          backgroundColor: "#04184B",
+                          color: "#fff",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Price per PC
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          backgroundColor: "#04184B",
+                          color: "#fff",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Base Unit
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          backgroundColor: "#04184B",
+                          color: "#fff",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Target Unit
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          backgroundColor: "#04184B",
+                          color: "#fff",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Currency
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {fileData.map((item) => (
+                      <TableRow key={item.id}>
+                        <TableCell>{item.item_code}</TableCell>
+                        <TableCell>{item.item_description}</TableCell>
+                        <TableCell>{item.dimensions}</TableCell>
+                        <TableCell>{item.price_per_pc}</TableCell>
+                        <TableCell>{item.base_unit}</TableCell>
+                        <TableCell>{item.target_unit}</TableCell>
+                        <TableCell>{item.currency}</TableCell>
                       </TableRow>
                     ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ))}
           {fileData.length > rowsPerPage && (
             <Pagination
               count={Math.ceil(fileData.length / rowsPerPage)}
               page={page}
               onChange={handleChangePage}
-              style={{ marginTop: 16, display: "flex", justifyContent: "center" }}
+              style={{
+                marginTop: 16,
+                display: "flex",
+                justifyContent: "center",
+              }}
             />
           )}
           <div className="button-container">
@@ -279,7 +521,7 @@ export default function Supplier() {
                     padding: "8px",
                   }}
                 >
-                  File Name
+                  Reference No.
                 </TableCell>
                 <TableCell
                   sx={{
@@ -292,17 +534,52 @@ export default function Supplier() {
                 >
                   Upload Date
                 </TableCell>
+
+                <TableCell
+                  sx={{
+                    backgroundColor: "#04184B",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    border: "1px solid rgba(0, 0, 0, 0.5)",
+                    padding: "8px",
+                  }}
+                >
+                  Actions
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {files.map((file, index) => (
                 <TableRow
                   key={index}
-                  onClick={() => handleFileClick(file)}
+                  // onClick={() => handleFileClick(file)}
                   style={{ cursor: "pointer" }}
                 >
-                  <TableCell>{file.name}</TableCell>
-                  <TableCell>{uploadDate && uploadDate.toDateString()}</TableCell>
+                  <TableCell>
+                    {file.reference_no ? file.reference_no : file.name}
+                  </TableCell>
+                  <TableCell>
+                    {file.created_at
+                      ? file.created_at
+                      : uploadDate && uploadDate.toDateString()}
+                  </TableCell>
+                  <TableCell sx={{ display: "flex" }}>
+                    <Button
+                      onClick={() => SaveDocument(file)}
+                      variant="contained"
+                      color="primary"
+                    >
+                      SAVE
+                    </Button>
+                    <div className="space" style={{ width: "10px" }}></div>
+                    <Button
+                      onClick={() => handleFileClick(file)}
+                      variant="contained"
+                      color="secondary"
+                    >
+                      VIEW
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
