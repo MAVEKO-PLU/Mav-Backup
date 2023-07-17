@@ -23,6 +23,11 @@ import DashboardDrawer from "./drawer"
 import FlagIcon from '@mui/icons-material/Flag';
 
 
+const today = new Date();
+const now = new Date(today.getTime() - (1 * 24 * 60 * 60 * 1000));
+const threeDaysFromNow = new Date(today.getTime() + (3 * 24 * 60 * 60 * 1000));
+
+
 const mockData = [
   {
     id: 1,
@@ -36,13 +41,13 @@ const mockData = [
       unit_measure: "kg",
       currency: "USD",
       decor_code:'Am342',
-      valid_from_new_purchase: "2023-07-01",
+      valid_from_new_purchase: "2023-07-16",
     },
     pricing: {
       old_retail_price: 10.99,
       new_retail_price: 12.99,
-      valid_from_old_purchase: "2023-07-01",
-      valid_from_new_purchase: "2023-07-01"
+      valid_from_old_purchase: "2023-07-16",
+      valid_from_new_purchase: "2023-07-16"
     }
   },
   {
@@ -57,14 +62,13 @@ const mockData = [
       unit_measure: "kg",
       currency: "USD",
       decor_code:'Am7842',
-     
-      
+      valid_from_new_purchase: "2023-07-20",
     },
     pricing: {
       old_retail_price: 8.99,
       new_retail_price: 8.99,
-      valid_from_old_purchase: "2023-07-01",
-      valid_from_new_purchase: "2023-08-01"
+      valid_from_old_purchase: "2023-06-01",
+      valid_from_new_purchase: "2023-07-20"
     }
   }
 
@@ -224,8 +228,8 @@ export default function CustomerList() {
                   <TableCell>{row.item.unit_measure}</TableCell>
                   <TableCell>{row.pricing.old_retail_price}</TableCell>
                   <TableCell>{row.pricing.new_retail_price}</TableCell>
-                  <TableCell>{row.pricing.valid_from_new_purchase}</TableCell>
-                  {row.pricing.old_retail_price !== row.pricing.new_retail_price  && (
+                  <TableCell>{row.item.valid_from_new_purchase}</TableCell>
+                  {new Date(row.item.valid_from_new_purchase) >= now && new Date(row.item.valid_from_new_purchase) <= threeDaysFromNow && (
                     <TableCell>
                       {/* <span style={{ color: "red" }}>Flag</span> */}
                       <FlagIcon  style={{ color: "red" }} />
