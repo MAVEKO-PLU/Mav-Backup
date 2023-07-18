@@ -11,6 +11,8 @@ import * as XLSX from "xlsx";
 import "./supplier.css";
 import Pagination from "@mui/material/Pagination";
 import DashboardDrawer from "./drawer.jsx";
+import Snackbar from "@mui/material/Snackbar";
+
 // import FlagIcon from "react-icons/FlagIcon";
 
 export default function Supplier() {
@@ -25,6 +27,17 @@ export default function Supplier() {
   const [maxColumns] = useState(5); // Maximum number of columns to display
   const [uploadDate, setUploadDate] = useState(null); // Upload date state
   const [selectedRows, setSelectedRows] = useState([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const openSnackbar = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  };
+
+  const closeSnackbar = () => {
+    setSnackbarOpen(false);
+  };
 
   const fetchDocs = async () => {
     await fetch("http://localhost:3000/supplier_documents")
@@ -70,6 +83,7 @@ export default function Supplier() {
           body: JSON.stringify({
             payload: {
               reference_no: `REF-${randomNum}`,
+              effective_date: new Date().toISOString().split("T")[0],
               supplier_id: sup.data.id,
             },
           }),
@@ -79,7 +93,7 @@ export default function Supplier() {
       const sup_doc = await sup_doc_res.json();
 
       if (sup_doc.success) {
-        setStates(states+1)
+        setStates(states + 1);
         await handleFileClick2(file, sup_doc);
       }
     }
@@ -164,7 +178,7 @@ export default function Supplier() {
       const limitedData = data.map((row) =>
         columnsToDisplay.map((colIndex) => row[colIndex])
       );
-      dataFile = limitedData.splice(1)
+      dataFile = limitedData.splice(1);
       await setFileData1(limitedData.splice(1));
       await setStates(states + 1);
     };
@@ -239,14 +253,26 @@ export default function Supplier() {
     setSelectedRows([]);
   };
   const handleApprovedStatus = async () => {
-    const updatedData = fileData.map((row, index) => {
-      if (selectedRows.includes(index)) {
-        return { ...row, status: "Approved" };
+    const response = await fetch(
+      `http://localhost:3000/supplier_documents/${currentFile.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          payload: {
+            status: "approved",
+          },
+        }),
       }
-      return row;
-    });
-
-    setFileData(updatedData);
+    );
+    const res = await response.json();
+    if (res.success) {
+      openSnackbar("Document approved successfully"); // Open the Snackbar with the success message // Open the Snackbar with the error message
+    } else {
+      openSnackbar(res.data);
+    }
   };
   const handleNegotiatedStatus = async () => {
     const updatedData = fileData.map((row, index) => {
@@ -276,6 +302,13 @@ export default function Supplier() {
 
   const renderTablePage = () => (
     <>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={closeSnackbar}
+        message={snackbarMessage}
+      />
+
       <DashboardDrawer />
 
       <div className="inB">
@@ -544,6 +577,30 @@ export default function Supplier() {
                     padding: "8px",
                   }}
                 >
+                  Status
+                </TableCell>
+
+                <TableCell
+                  sx={{
+                    backgroundColor: "#04184B",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    border: "1px solid rgba(0, 0, 0, 0.5)",
+                    padding: "8px",
+                  }}
+                >
+                  Effective Date
+                </TableCell>
+
+                <TableCell
+                  sx={{
+                    backgroundColor: "#04184B",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    border: "1px solid rgba(0, 0, 0, 0.5)",
+                    padding: "8px",
+                  }}
+                >
                   Actions
                 </TableCell>
               </TableRow>
@@ -563,22 +620,38 @@ export default function Supplier() {
                       ? file.created_at
                       : uploadDate && uploadDate.toDateString()}
                   </TableCell>
+                  <TableCell>
+                    {file.status ? file.status : "Pending Save"}
+                  </TableCell>
+                  <TableCell>
+                    {file.effective_date
+                      ? file.effective_date
+                      : new Date().toISOString().split("T")[0]}
+                  </TableCell>
                   <TableCell sx={{ display: "flex" }}>
-                    <Button
-                      onClick={() => SaveDocument(file)}
-                      variant="contained"
-                      color="primary"
-                    >
-                      SAVE
-                    </Button>
+                    {file.name ? (
+                      <Button
+                        onClick={() => SaveDocument(file)}
+                        variant="contained"
+                        color="primary"
+                      >
+                        SAVE
+                      </Button>
+                    ) : (
+                      ""
+                    )}
                     <div className="space" style={{ width: "10px" }}></div>
-                    <Button
-                      onClick={() => handleFileClick(file)}
-                      variant="contained"
-                      color="secondary"
-                    >
-                      VIEW
-                    </Button>
+                    {file.reference_no ? (
+                      <Button
+                        onClick={() => handleFileClick(file)}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        VIEW
+                      </Button>
+                    ) : (
+                      ""
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

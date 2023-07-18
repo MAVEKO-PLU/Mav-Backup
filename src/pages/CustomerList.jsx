@@ -19,9 +19,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import DashboardDrawer from "./drawer"
-import FlagIcon from '@mui/icons-material/Flag';
-
+import DashboardDrawer from "./drawer";
+import FlagIcon from "@mui/icons-material/Flag";
 
 export default function CustomerList() {
   const [data, setData] = useState([]);
@@ -31,10 +30,14 @@ export default function CustomerList() {
   const [searchQuery, setSearchQuery] = useState("");
   const rowsPerPage = 10;
 
+  const today = new Date();
+  const now = new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000);
+  const threeDaysFromNow = new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchCL();
-      setData(response);
+      setData(response.slice(2));
     };
 
     fetchData();
@@ -56,32 +59,49 @@ export default function CustomerList() {
   const handleSearch = async () => {
     try {
       const newData = await fetchCL();
-  
+
       setTimeout(() => {
-        const filteredData = newData.filter((row) =>
-          (
-            String(row.item_code).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.decor_code).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item_name).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.item_description).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.dimensions).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.article_group).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.tax_class).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.weight).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.pricing.old_retail_price).toLowerCase().includes(searchQuery.toLowerCase()) ||
-            String(row.pricing.new_retail_price).toLowerCase().includes(searchQuery.toLowerCase())
-          )
+        const filteredData = newData.filter(
+          (row) =>
+            String(row.item_code)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.decor_code)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.item_name)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.item_description)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.dimensions)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.article_group)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.tax_class)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.weight)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.pricing.old_retail_price)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            String(row.pricing.new_retail_price)
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())
         );
         setData(filteredData); // Update the data with the filtered results
       }, 500);
-  
+
       setPage(1); // Reset the page to the first page
     } catch (error) {
       console.error("Error while searching:", error);
     }
   };
-  
-  
 
   const indexOfLastRow = page * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
@@ -90,8 +110,8 @@ export default function CustomerList() {
   return (
     <>
       {/* <NavBar></NavBar> */}
-      
-      <DashboardDrawer/>
+
+      <DashboardDrawer />
       <div className="inB" style={{ margin: "65px" }}>
         <h1>CUSTOMER PRICE LIST</h1>
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -103,18 +123,20 @@ export default function CustomerList() {
             style={{ marginRight: "10px" }}
           />
           <IconButton onClick={handleSearch}>
-            <SearchIcon sx={{
-              bgcolor: "#04184B",
-              borderRadius: "4px",
-              padding: "14px",
-              color: "#fff"
-            }} />
+            <SearchIcon
+              sx={{
+                bgcolor: "#04184B",
+                borderRadius: "4px",
+                padding: "14px",
+                color: "#fff",
+              }}
+            />
           </IconButton>
         </div>
         <br /> <br />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead className='tableheader'> 
+            <TableHead className="tableheader">
               <TableRow>
                 <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   Item Code
@@ -125,9 +147,7 @@ export default function CustomerList() {
                 <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   Item Name
                 </TableCell>
-                <TableCell
-                  sx={{ backgroundColor: "#04184B ", color: "#fff" }}
-                >
+                <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   Item Description
                 </TableCell>
                 <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
@@ -143,53 +163,63 @@ export default function CustomerList() {
                   Weight
                 </TableCell> */}
                 <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
-               Unit of Measure
+                  Unit of Measure
                 </TableCell>
                 <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
-                 Current Price
+                  Current Price
                 </TableCell>
                 <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
                   New Price
                 </TableCell>
                 <TableCell sx={{ backgroundColor: "#04184B ", color: "#fff" }}>
-                 Price Valid From 
+                  Price Valid From
                 </TableCell>
-                <TableCell sx={{ backgroundColor: "#04184B "}}>
-                
-                </TableCell>
+                <TableCell sx={{ backgroundColor: "#04184B " }}></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {paginatedRows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  onClick={() => handleRowClick(row)}
-                >
+                <TableRow key={row.id} onClick={() => handleRowClick(row)}>
                   <TableCell>{row.item_code}</TableCell>
                   <TableCell>{row.decor_code}</TableCell>
                   <TableCell>{row.item_name}</TableCell>
                   <TableCell>{row.item_description}</TableCell>
-                  <TableCell>{row.dimension.length + "x" + row.dimension.width + "x" + row.dimension.height}</TableCell>
+                  <TableCell>
+                    {row.dimension.length +
+                      "x" +
+                      row.dimension.width +
+                      "x" +
+                      row.dimension.height}
+                  </TableCell>
                   {/* <TableCell>{row.item.article_group}</TableCell>
                   <TableCell>{row.item.tax_class}</TableCell>
                   <TableCell>{row.item.weight}</TableCell> */}
                   <TableCell>{row.base_unit.unit}</TableCell>
-                  <TableCell>{row.customer_item_pricing.pricing.old_retail_price}</TableCell>
-                  <TableCell>{row.customer_item_pricing.pricing.new_retail_price}</TableCell>
-                  <TableCell>{row.customer_item_pricing.pricing.valid_from_new_purchase}</TableCell>
-                  {row.customer_item_pricing.pricing.old_retail_price !== row.customer_item_pricing.pricing.new_retail_price  && (
-                    <TableCell>
-                      {/* <span style={{ color: "red" }}>Flag</span> */}
-                      <FlagIcon  style={{ color: "red" }} />
-                    </TableCell> )}
-
-
+                  <TableCell>
+                    {row.customer_item_pricing.pricing.old_retail_price}
+                  </TableCell>
+                  <TableCell>
+                    {row.customer_item_pricing.pricing.new_retail_price}
+                  </TableCell>
+                  <TableCell>
+                    {row.customer_item_pricing.pricing.new_retail_price_valid_from}
+                  </TableCell>
+                  {new Date(
+                    row.customer_item_pricing.pricing.new_retail_price_valid_from
+                  ) >= now &&
+                    new Date(
+                      row.customer_item_pricing.pricing.new_retail_price_valid_from
+                    ) <= threeDaysFromNow && (
+                      <TableCell>
+                        {/* <span style={{ color: "red" }}>Flag</span> */}
+                        <FlagIcon style={{ color: "red" }} />
+                      </TableCell>
+                    )}
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-
         <Stack
           spacing={2}
           direction="row"
@@ -202,7 +232,6 @@ export default function CustomerList() {
             onChange={handleChangePage}
           />
         </Stack>
-
         <Dialog
           open={dialogOpen}
           onClose={handleCloseDialog}
@@ -215,35 +244,47 @@ export default function CustomerList() {
               <Table>
                 <TableBody>
                   <TableRow>
-                    {/* <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row">
                       Old Retail Price:
-                    </TableCell> */}
+                    </TableCell>
                     <TableCell>
-                      {selectedItem.pricing.old_retail_price}
+                      {
+                        selectedItem.customer_item_pricing.pricing
+                          .old_retail_price
+                      }
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    {/* <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row">
                       New Retail Price:
-                    </TableCell> */}
-                    {/* <TableCell>
-                      {selectedItem.pricing.new_retail_price}
-                    </TableCell> */}
-                  </TableRow>
-                  <TableRow>
-                    {/* <TableCell component="th" scope="row">
-                      New Retail Price Valid from:
-                    </TableCell> */}
+                    </TableCell>
                     <TableCell>
-                      {selectedItem.pricing.new_retail_price_valid_from}
+                      {
+                        selectedItem.customer_item_pricing.pricing
+                          .new_retail_price
+                      }
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    {/* <TableCell component="th" scope="row">
-                      New Retail Price Valid to:
-                    </TableCell> */}
+                    <TableCell component="th" scope="row">
+                      New Retail Price Valid from:
+                    </TableCell>
                     <TableCell>
-                      {selectedItem.pricing.new_retail_price_valid_to}
+                      {
+                        selectedItem.customer_item_pricing.pricing
+                          .new_retail_price_valid_from
+                      }
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      New Retail Price Valid to:
+                    </TableCell>
+                    <TableCell>
+                      {
+                        selectedItem.customer_item_pricing.pricing
+                          .new_retail_price_valid_to
+                      }
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -251,7 +292,10 @@ export default function CustomerList() {
                       Change in Percentage:
                     </TableCell>
                     <TableCell>
-                      {selectedItem.pricing.change_in_percentage}
+                      {Math.round((((selectedItem.customer_item_pricing.pricing
+                        .new_retail_price -
+                        selectedItem.customer_item_pricing.pricing
+                          .old_retail_price)/ selectedItem.customer_item_pricing.pricing.new_retail_price)) * 100)}%
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -259,7 +303,6 @@ export default function CustomerList() {
             )}
           </DialogContent>
         </Dialog>
-      
       </div>
     </>
   );

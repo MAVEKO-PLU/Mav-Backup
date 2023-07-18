@@ -40,7 +40,7 @@ export const fetchSL = async () => {
 };
 
 export const fetchML = async () => {
-  const response = await fetch(`${api_link}/main_item_pricings`, {
+  const response = await fetch(`${api_link}/items`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const fetchML = async () => {
 
   const res = await response.json();
 
-  if (res.Success) {
+  if (res.success) {
     console.log(res.data[0].item);
     return res.data;
   } else {
