@@ -7,7 +7,7 @@ import Dashboard from './pages/dashboard.jsx';
 import Approval from './pages/Approval.jsx'
 import Validation from "./pages/validation.jsx";
 import MyTable from './pages/MasterList.jsx'
-
+import UpTable from './price up/update table.jsx'
 import Notify from "./pages/notification.jsx";
 import SimpleTable from './cross referensing/cross-table-s-m.jsx';
 import ParentComponent from './cross referensing/Cross-Referensing.jsx';
@@ -26,6 +26,7 @@ function App() {
         <Route path="/validation" element={<Validation />} />
         <Route path="/simpletable" element={<SimpleTable/>} />
         <Route path="/ParentComponent" element={<ParentComponent/>} />
+        <Route path="/UpTable" element={<UpTable/>} />
 
 
        

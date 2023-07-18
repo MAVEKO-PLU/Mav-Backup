@@ -67,7 +67,7 @@ const CrossReferencing = () => {
 
   return (
     <div>
-      <input type="text" placeholder="Filter by customer name" onChange={handleFilter} />
+      <input type="text" placeholder="Filter by customer ID" onChange={handleFilter} />
       {filteredData.length > 0 ? (
         <MergedTable data={filteredData} />
       ) : (
