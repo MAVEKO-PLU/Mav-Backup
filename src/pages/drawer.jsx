@@ -107,7 +107,7 @@ export default function DashboardDrawer() {
   }, [notifications]);
   return (
     <>
-      <AppBar  style={{backgroundColor:"#2f4f75"}} position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar  style={{backgroundColor:"#04184B"}} position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
         <IconButton sx={{ color: 'white' }} edge="start" aria-label="open drawer" onClick={toggleDrawer}>
             

@@ -60,23 +60,23 @@ export default function MasterList() {
       <DashboardDrawer/>
       <div
         className="inB"
-        style={{ margin: "45px"}}
+        style={{ margin: "45px",}}
       >
-        <h1>MASTER PRICE LIST</h1>
+        {/* <h1>MASTER PRICE LIST</h1> */}
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead >
-              <TableRow  >
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Item Code</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Decor Code</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Item Name</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Item Description</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Dimensions</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Article Group</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Tax Class</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Weight</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>Old Price</TableCell>
-                <TableCell sx={{ backgroundColor: "#849dab", color: "#fff" }}>New Price</TableCell>
+            <TableHead style={{ backgroundColor:'#04184B',color:'white'}} >
+              <TableRow  sx={{color:'white'  }}  >
+                <TableCell>Item Code</TableCell>
+                <TableCell sx={{color:'white'}}>Decor Code</TableCell>
+                <TableCell sx={{color:'white'  }}>Item Name</TableCell>
+                <TableCell sx={{color:'white'  }}>Item Description</TableCell>
+                <TableCell sx={{color:'white'  }}>Dimensions</TableCell>
+                <TableCell sx={{color:'white'  }}>Article Group</TableCell>
+                <TableCell sx={{color:'white'  }}>Tax Class</TableCell>
+                <TableCell sx={{color:'white'  }}>Weight</TableCell>
+                <TableCell sx={{color:'white'  }}>Old Price</TableCell>
+                <TableCell sx={{color:'white'  }}>New Price</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -8,6 +8,7 @@ import Dashboard from "./pages/dashboard.jsx";
 import Approval from "./pages/Approval.jsx";
 import Validation from "./pages/validation.jsx";
 import Notify from "./pages/notification.jsx";
+import Dropdown from "./pages/dropdown.jsx";
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
           <Route path="/approval" element={<Approval />} />
           <Route path="/validation" element={<Validation />} />
           <Route path="/" element={<SignIn />} />
+          <Route path="/Dropdown" element={<Dropdown/>} />
+
         </Routes>
       </Router>
     
