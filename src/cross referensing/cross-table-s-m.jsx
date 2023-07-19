@@ -46,16 +46,18 @@ const SimpleTable = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <StyledTableCell>Item Description</StyledTableCell>
+            <StyledTableCell>Maviko Item Description</StyledTableCell>
             <StyledTableCell>Supplier ID</StyledTableCell>
+            <StyledTableCell>Supplier Items ID</StyledTableCell>
             <StyledTableCell>Maveko ID</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((row, index) => (
             <TableRow key={index}>
-              <TableCell>{row['Item-Discription']}</TableCell>
+              <TableCell>{row['Maveko-Item-Description']}</TableCell>
               <TableCell>{row['Suppliers-ID']}</TableCell>
+              <TableCell>{row['Suppliers-Item-ID']}</TableCell>
               <TableCell>{row['Maveko-ID']}</TableCell>
             </TableRow>
           ))}

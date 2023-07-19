@@ -13,7 +13,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   color: 'white',
 }));
 
-const SimpleTable = () => {
+const SimpleTable_m_c = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -46,19 +46,19 @@ const SimpleTable = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <StyledTableCell>Item Description</StyledTableCell>
+            <StyledTableCell>Maveko Item Description</StyledTableCell>
             <StyledTableCell>Maveko ID</StyledTableCell>
             <StyledTableCell>Customer ID</StyledTableCell>
-            <StyledTableCell>Customer Name</StyledTableCell>
+            <StyledTableCell>Customer Item ID</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((row, index) => (
             <TableRow key={index}>
-              <TableCell>{row['Item-Discription']}</TableCell>
+              <TableCell>{row['Maveko-Item-Description']}</TableCell>
               <TableCell>{row['Maveko-ID']}</TableCell>
               <TableCell>{row['customer-ID']}</TableCell>
-              <TableCell>{row['Customer-Name']}</TableCell>
+              <TableCell>{row['Customer-Item-ID']}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -67,4 +67,4 @@ const SimpleTable = () => {
   );
 };
 
-export default SimpleTable;
+export default SimpleTable_m_c;
