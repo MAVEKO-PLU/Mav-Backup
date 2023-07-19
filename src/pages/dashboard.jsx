@@ -100,22 +100,14 @@ export default function Dashboard() {
   return (
     <>
       <div className="dashbody">
-        <h2 className="dashboard">Dashboard</h2>
+
         <ThemeProvider theme={defaultTheme}>
-          <Box sx={{ display: "flex", maxWidth: "100%", marginLeft: "2%", marginRight: "2%" }}>
+          <Box sx={{  maxWidth: "100%", marginLeft:"4%", marginRight: "2%" }}>
             <CssBaseline />
             <DashboardDrawer/>
             <Box
               component="main"
-              sx={{
-                backgroundColor: (theme) =>
-                  theme.palette.mode === "light"
-                    ? theme.palette.grey[300]
-                    : theme.palette.grey[100],
-                flexGrow: 1,
-                height: "150vh",
-                overflow: "auto",
-              }}
+            
             >
               <Toolbar />
               <Container style={{ maxWidth: "fit-content" }}>

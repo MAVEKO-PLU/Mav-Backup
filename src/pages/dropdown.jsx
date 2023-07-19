@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControl, MenuItem, Select, styled } from '@mui/material';
 import DashboardDrawer from './drawer';
-import SupplierForm from './pricesource'; // Import the SupplierForm component
+import SupplierForm from './draft'; // Import the SupplierForm component
 
 const CustomFormControl = styled(FormControl)({
   minWidth: 400, // Set the minimum width of the dropdown
