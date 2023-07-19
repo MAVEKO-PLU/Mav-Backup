@@ -13,8 +13,8 @@ import {
   DialogTitle,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import DashboardDrawer from './drawer';
-import MasterList from './MasterList';
+import DashboardDrawer from '../drawer';
+import MasterList from '../MasterList';
 
 const FormContainer = styled('div')({
   display: 'flex',
