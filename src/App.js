@@ -6,7 +6,7 @@ import CustomerList from './pages/CustomerList.jsx';
 import Dashboard from './pages/dashboard.jsx';
 import Approval from './pages/Approval.jsx'
 import Validation from "./pages/validation.jsx";
-
+import SailingPrice from "./pages/calculateSellingPrice.jsx";
 import MyTable from './pages/MasterList.jsx'
 
 
@@ -30,6 +30,7 @@ function App() {
         <Route path="/notification" element={<Notify/>} />
         <Route path="/approval" element={<Approval />} />
         <Route path="/validation" element={<Validation />} />
+        <Route path="/selling" element={<SailingPrice/>} />
 
 
         <Route path="/simpletable" element={<SimpleTable/>} />

@@ -41,11 +41,13 @@ const mockData = [
       tax_class: "Tax Class 1",
       status: "pending",
       unit: "pcs",
+
     },
     price: 50,
     pricing: {
       old_purchase_price: 40,
       new_purchase_price: 45,
+      selling_Price:'123.09'
     },
   },
   {
@@ -61,17 +63,19 @@ const mockData = [
       article_group: "Group 2",
       tax_class: "Tax Class 2",
       unit: "pcs",
+     
     },
     price: 60,
     pricing: {
       old_purchase_price: 55,
       new_purchase_price: 58,
+      selling_Price:'123.09'
     },
   },
   // Add more items as needed
 ];
 
-export default function MasterList() {
+export default function SailingPrice() {
   const [data, setData] = useState(mockData);
   const [rows, setRows] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -196,9 +200,9 @@ export default function MasterList() {
 
       <DashboardDrawer />
       <div className="inB" style={{ margin: "65px" }}>
-        <div><h1  style={{ display: 'flex', justifyContent: 'flex-start' }}>Supplier Items</h1>
+        <div><h1  style={{ display: 'flex', justifyContent: 'flex-start' }}>09YT2#FG</h1>
         <h3   style={{ display: 'flex', justifyContent: 'flex-start' }}>12/08/23</h3></div>
-        <h2 style={{ display: 'flex', justifyContent: 'flex-end' }}>ACCEPT DRAFT</h2>
+        <h1 style={{ display: 'flex', justifyContent: 'flex-end' }}>Calculate Selling Price</h1>
 
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -223,18 +227,24 @@ export default function MasterList() {
                 <TableCell
                   sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
-                  Old Price
-                </TableCell>
-                <TableCell
-                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
-                >
-                  New Price
+                 Decor Code
                 </TableCell>
                 <TableCell
                   sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
                   Unit of Measure
                 </TableCell>
+                <TableCell
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
+                >
+                  Purchase Price
+                </TableCell>
+                <TableCell
+                  sx={{ backgroundColor: "#04184B", color: "#fff" }}
+                >
+                  Selling Price
+                </TableCell>
+               
                 <TableCell
                   sx={{ backgroundColor: "#04184B", color: "#fff" }}
                 >
@@ -259,9 +269,10 @@ export default function MasterList() {
                   <TableCell>{row.item.item_name}</TableCell>
                   <TableCell>{row.item.item_description}</TableCell>
 
-                  <TableCell>{row.pricing.old_purchase_price}</TableCell>
-                  <TableCell>{row.pricing.new_purchase_price}</TableCell>
+                  <TableCell>{row.item.decor_code}</TableCell>
                   <TableCell>{row.item.unit}</TableCell>
+                  <TableCell>{row.item.SailingPrice}</TableCell>
+                  <TableCell sx={{color:'green'}}>{row.pricing.selling_Price}</TableCell>
                   <TableCell>{row.item.valid_from_new_purchase}</TableCell>
 <TableCell>{row.valid_to_new_purchase}</TableCell>
 
@@ -308,16 +319,9 @@ export default function MasterList() {
           startIcon={<DoneAllIcon />}
           onClick={handleApprovedStatus}
         >
-          ACCEPT
+          UPDATE
         </Button>
-        <Button
-          sx={{ backgroundColor: "#04184B", margin: "5px" }}
-          variant="contained"
-         
-          onClick={handleRejectedStatus}
-        >
-         CONVERT CURRENCY
-        </Button></div>
+        </div>
         
         <Stack
           spacing={2}
