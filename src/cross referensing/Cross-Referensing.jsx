@@ -19,6 +19,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const MergedTable = ({ data }) => (
+  
   <TableContainer component={Paper}>
     <Table>
       <TableHead>
@@ -26,7 +27,7 @@ const MergedTable = ({ data }) => (
           <StyledTableCell>Maviko Item Description</StyledTableCell>
           <StyledTableCell>Supplier ID</StyledTableCell>
           <StyledTableCell>Supplier Item ID</StyledTableCell>
-          <StyledTableCell>Maveko ID</StyledTableCell>
+        
           <StyledTableCell>Maveko Item ID</StyledTableCell>
           <StyledTableCell>Customer ID</StyledTableCell>
           <StyledTableCell>Customer Item ID</StyledTableCell>
@@ -38,7 +39,7 @@ const MergedTable = ({ data }) => (
             <TableCell>{row['Maveko-Item-Description']}</TableCell>
             <TableCell>{row['Suppliers-ID']}</TableCell>
             <TableCell>{row['Suppliers-Item-ID']}</TableCell>
-            <TableCell>{row['Maveko-ID']}</TableCell>
+          
             <TableCell>{row['Maveko-Item-ID']}</TableCell>
             <TableCell>{row['customer-ID']}</TableCell>
             <TableCell>{row['Customer-Item-ID']}</TableCell>
@@ -92,7 +93,7 @@ const CrossReferencing = () => {
           >
             <MenuItem value="customer-ID">Customer ID</MenuItem>
             <MenuItem value="Suppliers-ID">Supplier ID</MenuItem>
-            <MenuItem value="Maveko-ID">Maveko ID</MenuItem>
+            
             <MenuItem value="Maveko-Item-ID">Maveko Item ID</MenuItem>
             <MenuItem value="Maveko-Item-Description">Maviko Item Description</MenuItem>
             <MenuItem value="Customer-Item-ID">Customer Item ID</MenuItem>

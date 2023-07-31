@@ -13,7 +13,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   color: 'white',
 }));
 
-const SimpleTable_m_c = () => {
+const SimpleTable1 = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -67,4 +67,4 @@ const SimpleTable_m_c = () => {
   );
 };
 
-export default SimpleTable_m_c;
+export default SimpleTable1;
